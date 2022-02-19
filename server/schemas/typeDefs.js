@@ -7,6 +7,7 @@ const typeDefs = gql`
     ticketText: String
     createdAt: String
     username: String
+    status:String
   }
   type Query {
     tickets(username: String): [Ticket]
@@ -14,7 +15,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addTicket(ticketText: String!): Ticket
+    addTicket(username: String!, ticketText: String!): Ticket
+    updateTicket(username: String!, ticketText: String!, _id: String!): Ticket
   }
 `;
 
