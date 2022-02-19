@@ -1,11 +1,12 @@
 const faker = require('faker');
 
 const db = require('../config/connection');
-const { Ticket, User } = require('../models');
+const { Ticket, User, Admin } = require('../models');
 
 db.once('open', async () => {
   await Ticket.deleteMany({});
   await User.deleteMany({});
+  await Admin.deleteMany({});
 
   // create user data
   const userData = [];
@@ -22,12 +23,13 @@ db.once('open', async () => {
   // create ticket
   let createdTickets = [];
   for (let i = 0; i < 100; i += 1) {
-    const ticketText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const message = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const title = faker.lorem.words(Math.round(Math.random() * 10) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdTicket = await Ticket.create({ ticketText, username });
+    const createdTicket = await Ticket.create({ message, username,title });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
