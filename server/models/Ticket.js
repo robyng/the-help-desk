@@ -19,7 +19,13 @@ const ticketSchema = new Schema(
       type: String,
       required: true
     },
+    status: {
+      type: String,
+      default: "Open",
+      
+    },
     //comments: [commentSchema]
+
   },
   {
     toJSON: {

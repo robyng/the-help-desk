@@ -19,8 +19,6 @@ db.once('open', async () => {
   }
 
   const createdUsers = await User.collection.insertMany(userData);
-
- 
   // create ticket
   let createdTickets = [];
   for (let i = 0; i < 100; i += 1) {
