@@ -22,8 +22,16 @@ const typeDefs = gql`
     username: String
     status:String
     isPrivate:Boolean
+    comments: [Comment]
   
   }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    username: String
+  }
+
   type Query {
     me: User
     adminAllTickets(username: String, searchForUsername: String): [Ticket] 
@@ -37,6 +45,7 @@ const typeDefs = gql`
     updateTicket(username: String!, message: String!, _id: String!, isPrivate: Boolean): Ticket
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!, isAdmin:Boolean): Auth
+    addComment(ticketId: String!, message: String!): Ticket
   }
 `;
 

@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-//const commentSchema = require('./Comment');
+const commentSchema = require('./Comment');
 const dateFormat = require('../utils/dateFormat');
 
 const ticketSchema = new Schema(
@@ -42,7 +42,7 @@ const ticketSchema = new Schema(
       default: true,
       required: "The post is missing True/False, does the post contain confidential info"
     },
-    //comments: [commentSchema]
+    comments: [commentSchema]
 
   },
   {
@@ -52,9 +52,7 @@ const ticketSchema = new Schema(
   }
 );
 
-ticketSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length;
-});
+
 
 const Ticket = model('Ticket', ticketSchema);
 
