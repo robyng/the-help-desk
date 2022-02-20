@@ -25,11 +25,13 @@ db.once('open', async () => {
   for (let i = 0; i < 100; i += 1) {
     const message = faker.lorem.words(Math.round(Math.random() * 20) + 1);
     const title = faker.lorem.words(Math.round(Math.random() * 10) + 1);
+    const isPrivate = Math.random()  > 0.5 ? true : false; // (max - min +1) + min
+    console.log(`isPrivate ${isPrivate}`)
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdTicket = await Ticket.create({ message, username,title });
+    const createdTicket = await Ticket.create({ message, username,title,isPrivate });
 
     const updatedUser = await User.updateOne(
       { _id: userId },

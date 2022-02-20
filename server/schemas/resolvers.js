@@ -18,12 +18,57 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     
-    // get all tickets
-    // ToDo: filter by admin
-    tickets: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Ticket.find(params).sort({ createdAt: -1 });
+    // get all tickets, or get all tickets for a specific user by username
+    // *** Does not filter by
+    adminAllTickets: async (parent, { searchForUsername }, context) => {
+      if (context.user) {// verify the admin is logged in
+        let userID = await User.findOne({ username: context.user.username }); // get userId for next query
+        userID = userID._id
+        // search admin container for the specific id
+        // if a Id object is returned they are an admin
+        // else if its null/empty they are not an admin
+        const isAdmin = await Admin.find({ userId: { $eq: userID } })
+
+        // return either {"username":"mogannam"} or {}
+        // if username is not empty, then search for one users tickets
+        // if username is empty search for all users
+        const specificUser = searchForUsername ? { username: searchForUsername } : {};
+        // if isAdmin is not empty you are an admin
+        if (isAdmin) // if admin, show anything for aspecific user or annything for all users
+          return Ticket.find(specificUser).sort({ createdAt: -1 });
+        // else you are not an admin, and either an error occured or somehow a regular user got thru
+        // so return nothing
+        return Ticket
+    }
+
+    throw new AuthenticationError('You need to be logged in!');
+  
     },
+    tickets: async (parent, args, context) => {
+      // if browsing as yourself or not logged in
+     
+        // if I am logged in, I have a valid username, pulled from the header
+        const myUserName = context.user.username 
+        
+        // get a bool parameter to decide
+        // true -> search my tickets
+        // false ->  search all public tickets
+        const searchMyTickets = args.searchMyTickets
+        console.log(`username ${myUserName} | searchMyTickets ${searchMyTickets}`)
+        if(myUserName && searchMyTickets) // if true search my tickets
+            //if username is valid, search my tickets -> show all tickets
+            return Ticket.find({username: myUserName}).sort({ createdAt: -1 });
+        // else there is no valid user logged in so show all public tickets
+        return Ticket.find({ isPrivate: { $eq: false } }).sort({ createdAt: -1 });
+        
+    },
+
+    //get ticket by id
+    //todo: prevent regular user from seeing private tickets
+    ticket: async (parent, { _id }) => {
+      return Ticket.findOne({ _id });
+    },
+
     //get ticket by id
     //todo: prevent regular user from seeing private tickets
     ticket: async (parent, { _id }) => {

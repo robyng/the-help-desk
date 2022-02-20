@@ -26,7 +26,8 @@ const typeDefs = gql`
   }
   type Query {
     me: User
-    tickets(username: String): [Ticket]
+    adminAllTickets(username: String, searchForUsername: String): [Ticket] 
+    tickets(searchMyTickets: Boolean): [Ticket] 
     ticket(_id: ID!): Ticket
   }
 
