@@ -33,6 +33,7 @@ const typeDefs = gql`
 
   type Mutation {
     addTicket(username: String!, message: String!, title: String!, isPrivate: Boolean): Ticket
+    deleteTicket(_id : String!): Ticket
     updateTicket(username: String!, message: String!, _id: String!, isPrivate: Boolean): Ticket
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!, isAdmin:Boolean): Auth
