@@ -1,5 +1,5 @@
 import React from 'react';
-import {Menu} from 'antd'; 
+
 
 function Nav(props) {
     const {
@@ -9,14 +9,7 @@ function Nav(props) {
     } = props;
 
     return (
-<nav> <Menu mode="horizontal">
-    <Menu.Item key="home">
-        Home
-    </Menu.Item>
-    <Menu.Item key="login">
-        Login
-    </Menu.Item>
-</Menu>
+<nav> 
         <ul className="flex-row">
             {pages.map((page) => (
                 <li
