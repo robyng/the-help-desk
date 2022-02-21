@@ -1,12 +1,13 @@
 import React from 'react';
 
 
-function Landing() {
+function Login() {
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1>Login Page</h1>
         </div>
     )
+
 }
 
-export default Landing;
+export default Login;
