@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
-import Nav from './components/Nav'
-import Landing from './components/Landing'
-import Login from './components/Login'
+import Nav from './components/Nav';
+import Landing from './components/Landing';
+import Login from './components/Login';
+import Header from './components/Header';
 
 function App() {
 
@@ -21,11 +22,15 @@ function App() {
   }
   return (
     <div>
+      <Header>
       <Nav
       pages={pages}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}>
       </Nav>
+
+
+      </Header>
 
      {displayPage()}
 

@@ -1,4 +1,4 @@
-/* nav {
+nav {
   overflow: hidden;
   padding: 10px;
   display: flex;
@@ -11,4 +11,10 @@ nav a {
   padding: 20px;
   font-weight: 600;
   text-decoration: none;
-} */
+}
+
+header {
+  border-bottom: solid;
+  padding: 10px;
+  margin-bottom: 20px;
+}
