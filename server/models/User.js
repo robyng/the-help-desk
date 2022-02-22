@@ -1,5 +1,6 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, ObjectId } = require("mongoose");
 const bcrypt = require("bcrypt");
+const { ticketSchema } = require("./Ticket");
 
 const userSchema = new Schema(
   {
@@ -20,6 +21,7 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
+    tickets: [ObjectId]
   },
   {
     toJSON: {
