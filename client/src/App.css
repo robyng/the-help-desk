@@ -1,3 +1,13 @@
+:root {
+  --primary: #aebd38ff;
+  --secondary: #188b7d;
+  --tertiary: #f46036;
+  --quatrinary: #598234ff;
+  --light: #ffffff;
+  --dark: #031620;
+  --border-radius: 15px;
+}
+
 .App {
   text-align: center;
 }
@@ -36,3 +46,37 @@
     transform: rotate(360deg);
   }
 }
+
+
+.login-card,
+.signup-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  
+ 
+  padding: 5px;
+  border: 1px solid var(--dark); 
+  border-radius: var(--border-radius);
+  border-width: thick;
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.form-group button {
+  background-color: var(--quatrinary);
+  color: var(--light);
+  border-radius: 7px;
+  margin: 20px;
+}
+
