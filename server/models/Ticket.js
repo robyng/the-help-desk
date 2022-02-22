@@ -1,61 +1,59 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 //const commentSchema = require('./Comment');
-const dateFormat = require('../utils/dateFormat');
+const dateFormat = require("../utils/dateFormat");
 
 const ticketSchema = new Schema(
   {
-    title:{
+    title: {
       type: String,
       required: "The ticket is missing a title",
       minlength: 1,
-      maxlength: 100
+      maxlength: 100,
     },
-    category:{
+    category: {
       type: String,
       //required: "The ticket is missing a title",
       minlength: 1,
-      maxlength: 100
-
+      maxlength: 100,
     },
     message: {
       type: String,
-      required: 'You need to leave a issue description!',
+      required: "You need to leave a issue description!",
       minlength: 1,
-      maxlength: 280
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => dateFormat(timestamp)
+      get: (timestamp) => dateFormat(timestamp),
     },
-    username: {
+    unit: {
       type: String,
-      required: true
+      required: true,
     },
     status: {
       type: String,
       default: "Open",
-      
     },
-    isPrivate:{
+    isPrivate: {
       type: Boolean,
       default: true,
-      required: "The post is missing True/False, does the post contain confidential info"
+      required:
+        "The post is missing True/False, does the post contain confidential info",
     },
     //comments: [commentSchema]
-
   },
   {
     toJSON: {
-      getters: true
-    }
+      getters: true,
+    },
   }
 );
 
-ticketSchema.virtual('reactionCount').get(function() {
+ticketSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const Ticket = model('Ticket', ticketSchema);
+const Ticket = model("Ticket", ticketSchema);
 
 module.exports = Ticket;
