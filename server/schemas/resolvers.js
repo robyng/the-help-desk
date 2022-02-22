@@ -110,10 +110,20 @@ const resolvers = {
         if (isAdmin) {
           // if admin, show anything for aspecific user or annything for all users
           console.log("admin is deleting a ticket");
+          await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            { $pull: { tickets: ticket._id } },
+            { new: true }
+         );
           return Ticket.findOneAndDelete({ ...args });
         }
         // else when deleting, filter by unit on the ticket and ticketid
         // if they don't match return a null result, else return the ticket deleted
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { tickets: ticket._id } },
+          { new: true }
+        );
         return Ticket.findOneAndDelete({
           $and: [{ unit: { $eq: context.user.unit } }, { ...args }],
         });
@@ -133,12 +143,11 @@ const resolvers = {
           ...args,
           unit: context.user.unit,
         });
-        //const ticket = await Ticket.create({ ...args, unit: args.unit });
-        // await User.findByIdAndUpdate(
-        //   { _id: context.user._id },
-        //   { $push: { tickets: ticket._id } },
-        //   { new: true }
-        // );
+        await User.findByIdAndUpdate(
+           { _id: context.user._id },
+           { $push: { tickets: ticket._id } },
+           { new: true }
+        );
 
         return ticket;
       }

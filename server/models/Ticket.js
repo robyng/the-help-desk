@@ -56,4 +56,4 @@ ticketSchema.virtual("reactionCount").get(function () {
 
 const Ticket = model("Ticket", ticketSchema);
 
-module.exports = Ticket;
+module.exports = Ticket, ticketSchema;

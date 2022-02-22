@@ -10,7 +10,7 @@ const typeDefs = gql`
     _id: ID
     unit: String
     email: String
-    tickets: [Ticket]
+    tickets: [ID]
   }
 
   type Ticket {
