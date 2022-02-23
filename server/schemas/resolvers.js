@@ -9,14 +9,13 @@ const verifyAdmin = async (unitToValidate) => {
   // or returns an array with an Admin Schema
   // [{_ID: someAdminId, userId: someUserId }]
   let userID = await User.findOne({ unit: unitToValidate }); // get userId for next query, to check admin
-  console.log(`in resolver.js:verifyAdmin userID ${userID}`);
+  
   if (!userID) throw new AuthenticationError("Invalid unit or basic user");
   userID = userID._id;
   // search admin container for the specific id
   // if a Id object is returned they are an admin
   // else if its null/empty they are not an admin
   const isAdmin = await Admin.find({ userId: { $eq: userID } });
-  console.log(`in resolver.js:verifyAdmin ${JSON.stringify(isAdmin)}`);
   if (isAdmin && isAdmin != "undefined" && isAdmin.length > 0) return isAdmin;
   return null;
 };
@@ -39,7 +38,6 @@ const resolvers = {
     // get all tickets, or get all tickets for a specific user by unit
     // *** Does not filter by
     adminAllTickets: async (parent, { searchForunit }, context) => {
-      //console.log(`context.user: ${JSON.stringify(context.user)}`)
       if (context.user) {
         // verify the admin is logged in
 
@@ -64,7 +62,6 @@ const resolvers = {
     },
     tickets: async (parent, args, context) => {
       // if browsing as yourself or not logged in
-      console.log(`in public get tickets`);
       // if I am logged in, I have a valid unit, pulled from the header
       if (context.user) {
         // if user is logged in they are allowed to search there tickets
@@ -74,7 +71,6 @@ const resolvers = {
         // true -> search my tickets
         // false ->  search all public tickets
         const searchMyTickets = args.searchMyTickets;
-        console.log(`unit ${myunit} | searchMyTickets ${searchMyTickets}`);
         if (myunit && searchMyTickets)
           // if true search my tickets
           //if unit is valid, search my tickets -> show all tickets
@@ -109,7 +105,6 @@ const resolvers = {
         //check if valid admin logged in before deleting, or its the user who owns thee ticket
         if (isAdmin) {
           // if admin, show anything for aspecific user or annything for all users
-          console.log("admin is deleting a ticket");
           await User.findByIdAndUpdate(
             { _id: context.user._id },
             { $pull: { tickets: ticket._id } },
@@ -171,7 +166,6 @@ const resolvers = {
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
-      console.log(`userID ${user._id}`);
       if (args.isAdmin) {
         const admin = await Admin.create({ userId: user._id });
       }
@@ -195,7 +189,39 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     }, // ##### End Login
-  },
+    // ****** Beg addComment
+    addComment: async (parent, { ticketId, message }, context) => {
+      if (context.user) {
+        const updatedTicket = await Ticket.findOneAndUpdate(
+          { _id: ticketId },
+          { $push: { comments: { message, unit: context.user.unit } } },
+          { new: true, runValidators: true }
+        );
+
+        return updatedTicket;
+      }
+
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
+    },
+    // ****** End addComment
+    //####### Beg updateComment
+    updateComment: async (parent, {message, commentId }, context) => {
+      if (context.user) {
+        const updateComment = await Comment.findOneAndUpdate(
+          { _id: commentId },
+          { $push: { comments: { message, unit: context.user.unit } } },
+          { new: true, runValidators: true }
+        );
+
+        return updateComment;
+      }
+
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
+    },
+    // ###### End update Comment
+    
+
+  }
 };
 
 module.exports = resolvers;

@@ -12,6 +12,12 @@ const typeDefs = gql`
     email: String
     tickets: [ID]
   }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    unit: String
+  }
 
   type Ticket {
     _id: ID
@@ -22,7 +28,10 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
+    comments: [Comment]
   }
+ 
+
   type Query {
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
@@ -51,6 +60,8 @@ const typeDefs = gql`
       password: String!
       isAdmin: Boolean
     ): Auth
+    addComment(ticketId: String!, message: String!): Ticket
+    updateComment(message: String!, commentId: String!): Ticket
   }
 `;
 

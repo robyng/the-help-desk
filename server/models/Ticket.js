@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
-//const commentSchema = require('./Comment');
-const dateFormat = require("../utils/dateFormat");
+const { Schema, model } = require('mongoose');
+const commentSchema = require('./Comment');
+const dateFormat = require('../utils/dateFormat');
 
 const ticketSchema = new Schema(
   {
@@ -46,7 +46,8 @@ const ticketSchema = new Schema(
       required:
         "The post is missing True/False, does the post contain confidential info",
     },
-    //comments: [commentSchema] // an array of comments the are places on the individual ticket
+
+    comments: [commentSchema]
   },
   {
     toJSON: {
@@ -54,6 +55,7 @@ const ticketSchema = new Schema(
     },
   }
 );
+
 
 const Ticket = model("Ticket", ticketSchema);
 module.exports = Ticket, ticketSchema;
