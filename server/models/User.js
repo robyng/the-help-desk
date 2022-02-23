@@ -4,7 +4,7 @@ const { ticketSchema } = require("./Ticket");
 
 const userSchema = new Schema(
   {
-    unit: {
+    unit: { // the unit number acts as a username. It identifies the user and there unit number
       type: String,
       required: true,
       unique: true,
@@ -16,12 +16,12 @@ const userSchema = new Schema(
       unique: true,
       match: [/.+@.+\..+/, "Must match an email address!"],
     },
-    password: {
+    password: { // a hash of the password
       type: String,
       required: true,
       minlength: 5,
     },
-    tickets: [ObjectId]
+    tickets: [ObjectId] // anh array of ticket IDs associated with this single user
   },
   {
     toJSON: {
@@ -44,5 +44,4 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 const User = model("User", userSchema);
-
 module.exports = User;
