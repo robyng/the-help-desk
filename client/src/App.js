@@ -6,7 +6,6 @@ import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
 import React, { useState } from "react";
-import Skyline from "./assets/images/pexels-kehn-hermano-5962574.jpg";
 
 function App() {
   const pages = ["Home", "Login", "Signup"];
@@ -30,8 +29,10 @@ function App() {
           setCurrentPage={setCurrentPage}
         ></Nav>
       </Header>
-      <div className={Skyline}></div>
+      <div className="hero">
       {displayPage()}
+      </div>
+      
     </div>
   );
 }
