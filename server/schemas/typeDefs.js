@@ -58,6 +58,8 @@ const typeDefs = gql`
       password: String!
       isAdmin: Boolean
     ): Auth
+    addComment(ticketId: String!, message: String!): Ticket
+    updateComment(message: String!, commentId: String!): Ticket
   }
 `;
 
