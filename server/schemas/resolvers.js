@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Ticket, Admin } = require("../models");
+const { User, Ticket, Admin, Comment } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const verifyAdmin = async (unitToValidate) => {
@@ -205,15 +205,18 @@ const resolvers = {
     },
     // ****** End addComment
     //####### Beg updateComment
-    updateComment: async (parent, {message, commentId }, context) => {
+    updateComment: async (parent, {ticketId, message, commentId }, context) => {
+      console.log(`in resolver.js:updateComment`)
       if (context.user) {
-        const updateComment = await Comment.findOneAndUpdate(
-          { _id: commentId },
-          { $push: { comments: { message, unit: context.user.unit } } },
+        console.log(`in if block`)
+
+        const updateTicket = await Ticket.findOneAndUpdate(
+          { _id: ticketId },
+          { $push: { comments: { message, unit: context.user.unit, _id: commentId } } },
           { new: true, runValidators: true }
         );
 
-        return updateComment;
+        return updateTicket;
       }
 
       throw new AuthenticationError('You need to be logged in to comment on a ticket!');

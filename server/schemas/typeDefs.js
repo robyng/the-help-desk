@@ -60,7 +60,7 @@ const typeDefs = gql`
       isAdmin: Boolean
     ): Auth
     addComment(ticketId: String!, message: String!): Ticket
-    updateComment(message: String!, commentId: String!): Ticket
+    updateComment(ticketId: String!, message: String!, commentId: String!): Ticket
   }
 `;
 

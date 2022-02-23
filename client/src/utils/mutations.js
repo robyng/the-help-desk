@@ -51,13 +51,31 @@ mutation addComment($ticketId: String!, $message: String!) {
   }
 `;
 
-export const DELETE_COMMENT= gql`
+export const DELETE_TICKET= gql`
 mutation deleteTicket($_id: String!){
     deleteTicket(_id: $_id) {
       _id
-      username
+      unit
       message
       createdAt
     }
   }
+`;
+
+export const ADD_TICKET = gql`
+mutation addTicket($message: String!, $unit: String!, $title : String!,, $isPrivate: Boolean) {
+  addTicket(unit: $unit, message:$message, title:$title, isPrivate:$isPrivate) {
+    _id
+    message
+    createdAt
+    unit
+    status
+    title
+    isPrivate
+  }
+}
+`;
+
+export const UPDATE_COMMENT = gql `
+
 `;
