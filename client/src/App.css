@@ -2,6 +2,7 @@
   --primary: #68829E;
   --secondary: #188b7d;
   --tertiary: #f46036;
+  /* used for btn class bootstrap */
   --quatrinary: #505160;
   --light: #ffffff;
   --dark: #031620;
@@ -48,14 +49,30 @@
   position: absolute;
 }
 
-.logo {
-  margin-left: 20px;
+/* space between header and displaypage() aka page content */
+header {
+  margin-bottom: 50px;
 }
 
-header h1, span {
+header span {
   color: white;
+  font-size: 20px;
+};
+
+nav .btn {
+  font-size: 20px;
 }
 
 html * {
   font-family: 'Montserrat';
+}
+
+h1, h2 {
+  font-size: 45px;
+  color: white;
+}
+
+/* page content div for padding */
+.content {
+ padding: 45px;
 }

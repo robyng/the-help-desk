@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './../../assets/images/house-key-dark.png'
+import Logo from './../../assets/images/house-key-outlined.png'
 
 function Header(props) {
     return(

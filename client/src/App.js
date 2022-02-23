@@ -1,6 +1,6 @@
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Login from "./components/Login";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "./components/Nav";
 import Landing from "./components/Landing";
 import Header from "./components/Header";
@@ -30,8 +30,11 @@ function App() {
           setCurrentPage={setCurrentPage}
         ></Nav>
       </Header>
-      
+      <div className="content">
       {displayPage()}
+      </div>
+      
+
       </div>
       
     </div>
