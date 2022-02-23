@@ -4,13 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './components/Nav';
 import Landing from './components/Landing';
 import Header from './components/Header';
+import Signup from './components/Signup';
 import React, { useState } from 'react';
 
 function App() {
 
   const pages = [
     "Home",
-    "Login"
+    "Login",
+    "Signup"
   ]
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
@@ -19,6 +21,8 @@ function App() {
       return <Landing />
     } else if (currentPage === "Login") {
       return <Login />
+    } else if (currentPage === "Signup") {
+      return <Signup />
     }
   }
   return (
