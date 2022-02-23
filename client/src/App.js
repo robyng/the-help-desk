@@ -1,47 +1,39 @@
-import './App.css';
-import Login from './components/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Nav from './components/Nav';
-import Landing from './components/Landing';
-import Header from './components/Header';
-import Signup from './components/Signup';
-import React, { useState } from 'react';
+import "./App.css";
+import Login from "./components/Login";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Nav from "./components/Nav";
+import Landing from "./components/Landing";
+import Header from "./components/Header";
+import Signup from "./components/Signup";
+import React, { useState } from "react";
+import Skyline from "./assets/images/pexels-kehn-hermano-5962574.jpg";
 
 function App() {
-
-  const pages = [
-    "Home",
-    "Login",
-    "Signup"
-  ]
+  const pages = ["Home", "Login", "Signup"];
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   function displayPage() {
     if (currentPage === "Home") {
-      return <Landing />
+      return <Landing />;
     } else if (currentPage === "Login") {
-      return <Login />
+      return <Login />;
     } else if (currentPage === "Signup") {
-      return <Signup />
+      return <Signup />;
     }
   }
   return (
     <div>
       <Header>
-      <Nav
-      pages={pages}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}>
-      </Nav>
-
-
+        <Nav
+          pages={pages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></Nav>
       </Header>
-
-     {displayPage()}
-
+      <div className={Skyline}></div>
+      {displayPage()}
     </div>
   );
 }
-
 
 export default App;
