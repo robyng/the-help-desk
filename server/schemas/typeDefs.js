@@ -12,6 +12,12 @@ const typeDefs = gql`
     email: String
     tickets: [ID]
   }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    unit: String
+  }
 
   type Ticket {
     _id: ID
@@ -22,13 +28,9 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
+    comments: [Comment]
   }
-  type Comment {
-    _id: ID
-    message: String
-    createdAt: String
-    username: String
-  }
+ 
 
   type Query {
     me: User
