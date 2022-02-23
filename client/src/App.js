@@ -22,6 +22,7 @@ function App() {
   }
   return (
     <div>
+      <div className="hero">
       <Header>
         <Nav
           pages={pages}
@@ -29,7 +30,7 @@ function App() {
           setCurrentPage={setCurrentPage}
         ></Nav>
       </Header>
-      <div className="hero">
+      
       {displayPage()}
       </div>
       
