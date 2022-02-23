@@ -23,6 +23,7 @@ const typeDefs = gql`
     status: String
     isPrivate: Boolean
   }
+  
   type Query {
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
