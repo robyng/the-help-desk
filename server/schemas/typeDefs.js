@@ -5,20 +5,6 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-
-  type User {
-    _id: ID
-    unit: String
-    email: String
-    tickets: [ID]
-  }
-  type Comment {
-    _id: ID
-    message: String
-    createdAt: String
-    unit: String
-  }
-
   type Ticket {
     _id: ID
     title: String
@@ -29,6 +15,19 @@ const typeDefs = gql`
     status: String
     isPrivate: Boolean
     comments: [Comment]
+  }
+
+  type User {
+    _id: ID
+    unit: String
+    email: String
+    tickets: [Ticket]
+  }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    unit: String
   }
  
 
