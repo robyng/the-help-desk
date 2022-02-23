@@ -5,14 +5,6 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-
-  type User {
-    _id: ID
-    unit: String
-    email: String
-    tickets: [ID]
-  }
-
   type Ticket {
     _id: ID
     title: String
@@ -22,8 +14,23 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
+    comments: [Comment]
   }
-  
+
+  type User {
+    _id: ID
+    unit: String
+    email: String
+    tickets: [Ticket]
+  }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    unit: String
+  }
+
+
   type Query {
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
@@ -52,6 +59,8 @@ const typeDefs = gql`
       password: String!
       isAdmin: Boolean
     ): Auth
+    addComment(ticketId: String!, message: String!): Ticket
+    updateComment(message: String!, commentId: String!): Ticket
   }
 `;
 
