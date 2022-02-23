@@ -19,10 +19,25 @@ const typeDefs = gql`
     category: String
     message: String
     createdAt: String
+<<<<<<< HEAD
     unit: String
     status: String
     isPrivate: Boolean
+=======
+    username: String
+    status:String
+    isPrivate:Boolean
+    comments: [Comment]
+  
+>>>>>>> jmo-ticket-comment
   }
+  type Comment {
+    _id: ID
+    message: String
+    createdAt: String
+    username: String
+  }
+
   type Query {
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
@@ -45,12 +60,18 @@ const typeDefs = gql`
       isPrivate: Boolean
     ): Ticket
     login(email: String!, password: String!): Auth
+<<<<<<< HEAD
     addUser(
       unit: String!
       email: String!
       password: String!
       isAdmin: Boolean
     ): Auth
+=======
+    addUser(username: String!, email: String!, password: String!, isAdmin:Boolean): Auth
+    addComment(ticketId: String!, message: String!): Ticket
+    updateComment(message: String!, commentId: String!): Comment
+>>>>>>> jmo-ticket-comment
   }
 `;
 

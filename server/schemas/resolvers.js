@@ -195,7 +195,39 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     }, // ##### End Login
-  },
+    // ****** Beg addComment
+    addComment: async (parent, { ticketId, message }, context) => {
+      if (context.user) {
+        const updatedTicket = await Ticket.findOneAndUpdate(
+          { _id: ticketId },
+          { $push: { comments: { message, username: context.user.username } } },
+          { new: true, runValidators: true }
+        );
+
+        return updatedTicket;
+      }
+
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
+    },
+    // ****** End addComment
+    //####### Beg updateComment
+    updateComment: async (parent, {message, commentId }, context) => {
+      if (context.user) {
+        const updateComment = await Comment.findOneAndUpdate(
+          { _id: commentId },
+          { $push: { comments: { message, username: context.user.username } } },
+          { new: true, runValidators: true }
+        );
+
+        return updateComment;
+      }
+
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
+    },
+    // ###### End update Comment
+    
+
+  }
 };
 
 module.exports = resolvers;
