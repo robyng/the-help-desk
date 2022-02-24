@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import React, { useState } from "react";
+import Auth from './utils/auth';
 import {
   ApolloClient,
   InMemoryCache,
@@ -37,7 +38,8 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const pages = ["Home", "Login", "Signup", "Dashboard"];
+  const pages = ["Home", "Login", "Signup"];
+  const memberPages = ["Dashboard", "Logout", "Account"]
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   function displayPage() {
@@ -47,8 +49,10 @@ function App() {
       return <Login />;
     } else if (currentPage === "Signup") {
       return <Signup />;
-    } else if (currentPage === "Dashboard") {
+    } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
+  } else {
+    return <Login></Login>
   }
   }
   return (
@@ -57,7 +61,7 @@ function App() {
       <div className="hero">
       <Header>
         <Nav
-          pages={pages}
+          pages={Auth.loggedIn() ? memberPages : pages}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         ></Nav>
