@@ -11,7 +11,8 @@
 
 .login-card,
 .signup-card {
-  display: flex;
+  /*removed below so error message goes beneath form not to side*/
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
