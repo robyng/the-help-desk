@@ -61,3 +61,17 @@ mutation deleteTicket($_id: String!){
     }
   }
 `;
+
+export const ADD_TICKET= gql`
+mutation addTicket($message: String!, $unit: String!, $title : String!,, $isPrivate: Boolean) {
+  addTicket(unit: $unit, message:$message, title:$title, isPrivate:$isPrivate) {
+    _id
+    message
+    createdAt
+    unit
+    status
+    title
+    isPrivate
+  }
+}
+`

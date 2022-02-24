@@ -9,6 +9,7 @@ query getAllTickets {
       createdAt
       status
       isPrivate
+      title
       comments {
         message
         _id
