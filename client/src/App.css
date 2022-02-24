@@ -2,6 +2,7 @@
   --primary: #68829E;
   --secondary: #188b7d;
   --tertiary: #f46036;
+  /* used for btn class bootstrap */
   --quatrinary: #505160;
   --light: #ffffff;
   --dark: #031620;
@@ -38,14 +39,40 @@
   margin: 20px;
 }
 
-/* for landscape image 
-
-*/
+/* for landscape image */
 .hero { 
   background-image: url("../src/assets/images/pexels-kehn-hermano-5962574.jpg");
-  padding: 100px;
+  padding: 20px;
   background-size: cover;
   min-height: 100%;
   min-width: 100%;
   position: absolute;
+}
+
+/* space between header and displaypage() aka page content */
+header {
+  margin-bottom: 50px;
+}
+
+header span {
+  color: white;
+  font-size: 20px;
+};
+
+nav .btn {
+  font-size: 20px;
+}
+
+html * {
+  font-family: 'Montserrat';
+}
+
+h1, h2 {
+  font-size: 45px;
+  color: white;
+}
+
+/* page content div for padding */
+.content {
+ padding: 45px;
 }
