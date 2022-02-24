@@ -1,30 +1,50 @@
 import React from 'react';
 
-const TicketList = ({ ticket, title }) => {
-  if (!ticket) {
+import { useQuery } from '@apollo/client';
+import { QUERY_TICKETS } from '../../utils/queries';
+
+const TicketList = () => {
+  //Show all tickets
+  const { loading, data } = useQuery(QUERY_TICKETS);
+
+  const tickets = data?.tickets || [];
+
+  if (!tickets) {
     return <h3>No Ticket Yet</h3>;
   }
 
   return (
+
     <div>
-      <h3>{title}</h3>
-      {ticket &&
-        ticket.map(ticket => (
-          <div key={ticket._id} className="card mb-3">
-            <p className="card-header">
-              {ticket.username}
-              ticket on {ticket.createdAt}
-            </p>
-            <div className="card-body">
-              <p>{ticket.ticketText}</p>
-              <p className="mb-0">
-                Comment: {ticket.commentCount} || Click to{' '}
-                {ticket.commentCount ? 'see' : 'start'} the discussion!
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+
+        tickets.map(ticket => (
+          <div>
+            <h3>{ticket.title}</h3>
+            <div key={ticket._id} className="card mb-3">
+              <p className="card-header">
+                {ticket.username}
+                ticket on {ticket.createdAt}
               </p>
+              <div className="card-body">
+                <p>{ticket.ticketText}</p>
+                <p className="mb-0">
+                  Comment: {ticket.commentCount} || Click to{' '}
+                  {ticket.commentCount ? 'see' : 'start'} the discussion!
+                </p>
+              </div>
             </div>
           </div>
-        ))}
+        ))
+
+
+      )
+
+      }
     </div>
+
   );
 };
 

@@ -7,6 +7,34 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import React, { useState } from "react";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+
+import { setContext } from '@apollo/client/link/context';
+
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
   const pages = ["Home", "Login", "Signup", "Dashboard"];
@@ -24,6 +52,7 @@ function App() {
   }
   }
   return (
+    <ApolloProvider client={client}>
     <div>
       <div className="hero">
       <Header>
@@ -41,6 +70,7 @@ function App() {
       </div>
       
     </div>
+</ApolloProvider>
   );
 }
 
