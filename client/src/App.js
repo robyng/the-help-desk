@@ -58,8 +58,8 @@ function App() {
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
   } else if (currentPage === "Logout") {
-    
-    return {logout} && Auth.logout
+    /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
+    return {logout} && Auth.logout()
   }else {
     return <Login></Login>
   }
