@@ -37,6 +37,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+/*for log out kill session*/
+const logout = event => {
+  event.preventDefault();
+  Auth.logout();
+};
+
 function App() {
   const pages = ["Home", "Login", "Signup"];
   const memberPages = ["Dashboard", "Logout", "Account"]
@@ -51,7 +57,10 @@ function App() {
       return <Signup />;
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
-  } else {
+  } else if (currentPage === "Logout") {
+    /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
+    return {logout} && Auth.logout()
+  }else {
     return <Login></Login>
   }
   }
