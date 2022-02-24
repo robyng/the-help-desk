@@ -5,10 +5,11 @@ import Nav from "./components/Nav";
 import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
+import Dashboard from "./components/Dashboard";
 import React, { useState } from "react";
 
 function App() {
-  const pages = ["Home", "Login", "Signup"];
+  const pages = ["Home", "Login", "Signup", "Dashboard"];
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   function displayPage() {
@@ -18,7 +19,9 @@ function App() {
       return <Login />;
     } else if (currentPage === "Signup") {
       return <Signup />;
-    }
+    } else if (currentPage === "Dashboard") {
+    return <Dashboard />;
+  }
   }
   return (
     <div>
