@@ -6,6 +6,8 @@ import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
+import FileUpload from "./components/FileUpload";
+import FileDownload from "./components/FileDownload";
 import React, { useState } from "react";
 import Auth from './utils/auth';
 import {
@@ -16,6 +18,7 @@ import {
 } from '@apollo/client';
 
 import { setContext } from '@apollo/client/link/context';
+
 
 
 const httpLink = createHttpLink({
@@ -67,21 +70,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <div>
-      <div className="hero">
-      <Header>
-        <Nav
-          pages={Auth.loggedIn() ? memberPages : pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        ></Nav>
-      </Header>
-      <div className="content">
-      {displayPage()}
-      </div>
-      
-
-      </div>
-      
+    <FileUpload/>
+    <FileDownload/>
+     
     </div>
 </ApolloProvider>
   );
