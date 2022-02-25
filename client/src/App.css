@@ -11,7 +11,8 @@
 
 .login-card,
 .signup-card {
-  display: flex;
+  /*removed below so error message goes beneath form not to side*/
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
@@ -75,4 +76,9 @@ h1, h2 {
 /* page content div for padding */
 .content {
  padding: 45px;
+}
+
+.btn:hover {
+  color: white;
+  border: 3px solid white
 }
