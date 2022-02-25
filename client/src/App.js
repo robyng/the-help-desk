@@ -6,6 +6,7 @@ import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
+import NewTicket from "./components/NewTicket";
 import React, { useState } from "react";
 import Auth from './utils/auth';
 import {
@@ -45,7 +46,7 @@ const logout = event => {
 
 function App() {
   const pages = ["Home", "Login", "Signup"];
-  const memberPages = ["Dashboard", "Logout", "Account"]
+  const memberPages = ["NewTicket", "Dashboard", "Logout", "Account"]
 
   const [currentPage, setCurrentPage] = useState(pages[0]);
   function displayPage() {
@@ -55,6 +56,8 @@ function App() {
       return <Login />;
     } else if (currentPage === "Signup") {
       return <Signup />;
+    } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
+        return <NewTicket />;
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
   } else if (currentPage === "Logout") {
@@ -62,7 +65,7 @@ function App() {
     return {logout} && Auth.logout()
   }else {
     return <Login></Login>
-  }
+  } 
   }
   return (
     <ApolloProvider client={client}>
