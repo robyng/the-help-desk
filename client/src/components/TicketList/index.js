@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { useQuery } from '@apollo/client';
-import { QUERY_TICKETS } from '../../utils/queries';
+import { useQuery } from "@apollo/client";
+import { QUERY_TICKETS } from "../../utils/queries";
 
 const TicketList = () => {
   //Show all tickets
@@ -14,37 +14,31 @@ const TicketList = () => {
   }
 
   return (
-
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <div>Loading..</div>
       ) : (
-
-        tickets.map(ticket => (
+        tickets.map((ticket) => (
           <div>
-            <h3>{ticket.title}</h3>
+            <h3 className="ticket-title">{ticket.title}</h3>
             <div key={ticket._id} className="card mb-3">
-              <p className="card-header">
-                {ticket.username}
-                ticket on {ticket.createdAt}
+              <p className="ticket-header">
+                Unit: {ticket.unit}
+                <br />
+                Ticket on {ticket.createdAt}
               </p>
               <div className="card-body">
-                <p>{ticket.ticketText}</p>
+                <p>{ticket.message}</p>
                 <p className="mb-0">
-                  Comment: {ticket.commentCount} || Click to{' '}
-                  {ticket.commentCount ? 'see' : 'start'} the discussion!
+                  Comment: {ticket.commentCount} || Click to{" "}
+                  {ticket.commentCount ? "see" : "start"} the discussion!
                 </p>
               </div>
             </div>
           </div>
         ))
-
-
-      )
-
-      }
+      )}
     </div>
-
   );
 };
 
