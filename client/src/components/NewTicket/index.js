@@ -21,6 +21,26 @@ function NewTicket() {
         ></textarea>
           <div className='form-group'>
             <button className='btn' type='submit'>Submit</button>
+            <div>
+            <div class="container mt-12" >
+      <label className="col-sm-8" >
+        Category:
+        <select className="col-sm-8"  >
+          <option value="plumbing">Plumbing</option>
+          <option value="eletrical">Eletrical</option>
+          <option value="cleaning">Cleaning</option>
+          <option value="financial">Financial</option>
+          <option value="socialareas">Social Areas</option>
+        </select>
+        <div>
+      <label>
+        <input type="checkbox" />
+        Private
+      </label>
+    </div>
+      </label>
+    </div>
+    </div>
           </div>
         </form>
       </div>
