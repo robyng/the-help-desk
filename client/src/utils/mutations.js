@@ -55,7 +55,7 @@ export const DELETE_COMMENT= gql`
 mutation deleteTicket($_id: String!){
     deleteTicket(_id: $_id) {
       _id
-      username
+      unit
       message
       createdAt
     }
