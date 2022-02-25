@@ -8,6 +8,7 @@ const config = {
     bucketName: "the-help-desk",
     dirName: 'ticket-number' /* optional */,
     region: "us-west-1",
+    accessKeyId: "",
     secretAccessKey: ""
 };
 let img
