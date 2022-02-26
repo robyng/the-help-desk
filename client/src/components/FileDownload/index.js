@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { uploadFile } from 'aws-sdk';
 
 
-
 var AWS = require("aws-sdk");
 const config = {
     bucketName: process.env.REACT_APP_BUCKET_NAME,
@@ -13,7 +12,7 @@ const config = {
 };
 let img
 
-const FileDownload = () => {
+const FileDownload = ( { imageName } ) => {
     const [ticketNumber, setticketNumber] = useState('monk.jpg');
     let [img, setImg] = useState()
 
@@ -30,50 +29,13 @@ const FileDownload = () => {
         e.preventDefault();
     };
 
-    const handleDownload = () => {
+    const handleDownload = (imageName) => {
         const s3 = new AWS.S3();
 
         const params = {
             Bucket: config.bucketName,
-            Key: `${config.dirName}\\${ticketNumber.trim()}`,
+            Key: `${config.dirName}\\${imageName}`,
         };
-
-        // function downloadBlob(blob, name = `${ticketNumber}`) {
-        // //function downloadBlob(blob, name = `${ticketNumber}.csv`) {
-        //     // Convert your blob into a Blob URL (a special url that points to an object in the browser's memory)
-        //     const blobUrl = URL.createObjectURL(blob);
-        //     // Create a link element
-        //     const link = document.createElement('a');
-        //     // Set link's href to point to the Blob URL
-        //     link.href = blobUrl;
-        //     link.download = name;
-        //     // Append link to the body
-        //     document.body.appendChild(link);
-        //     // Dispatch click event on the link
-        //     // This is necessary as link.click() does not work on the latest firefox
-        //     link.dispatchEvent(
-        //         new MouseEvent('click', {
-        //             bubbles: true,
-        //             cancelable: true,
-        //             view: window,
-        //         })
-        //     );
-
-        //     // Remove link from body
-        //     document.body.removeChild(link);
-        // }
-
-        // s3.getObject(params, (err, data) => {
-        //     if (err) {
-        //         console.log(err, err.stack);
-        //     } else {
-        //         let aBlob = new Blob([data.Body.toString()], {
-        //             //type: 'text/csv;charset=utf-8;',
-        //         });
-        //         console.log(`file: ${ticketNumber}`)
-        //         downloadBlob(aBlob, `${ticketNumber}`);
-        //     }
-        // });
 
         function encode(data) {
             var str = data.reduce(function(a,b){ return a+String.fromCharCode(b) },'');
@@ -84,17 +46,9 @@ const FileDownload = () => {
             if (err) {
                 console.log(err, err.stack);
             } else {
-                // let aBlob = new Blob([data.Body.toString()], {
-                //     //type: 'text/csv;charset=utf-8;',
-                // });
-                // console.log(`----------------------- file: ${ticketNumber}`)
-                // downloadBlob(aBlob, `${ticketNumber.trim()}`);
                 setImg("data:image/jpeg;base64," + encode(data.Body))
             }
         });
-
-       
-
 
         console.log("img is ")
         console.log(img)
@@ -108,12 +62,11 @@ const FileDownload = () => {
         <>
             <form className='bg-white my-4' onSubmit={handleClick}>
                 <input type="text" placeholder={ticketNumber} value={ticketNumber} onChange={changeHandle} />
-                <input
-                    type='submit'
+                <a href="#"
                     value='Download'
                     className='btn btn-primary btn-block mt-3'
                     onClick={handleDownload}
-                />
+                >Download</a>
 
             </form>
             <img src={`${img}`} />

@@ -1,5 +1,6 @@
 import React from "react";
 // import TicketList from "../TicketList/index.js";
+import FileUpload from "../FileUpload";
 
 function NewTicket() {
   return (
@@ -8,11 +9,11 @@ function NewTicket() {
       <div className='login-card col-4'>
         <form className='form login-form'>
           <div className='form-group'>
-            <label for='title'>Title:</label>
+            <label htmlFor='title'>Title:</label>
             <input className='form-input' type='text' id='title' />
           </div>
           <div className='form-group'>
-            <label for='message'>Message:</label>
+            <label htmlFor='message'>Message:</label>
           </div>
           <textarea
         
@@ -22,7 +23,7 @@ function NewTicket() {
           <div className='form-group'>
             <button className='btn' type='submit'>Submit</button>
             <div>
-            <div class="container mt-12" >
+            <div className="container mt-12" >
       <label className="col-sm-8" >
         Category:
         <select className="col-sm-8"  >
@@ -36,7 +37,8 @@ function NewTicket() {
       <label>
         <input type="checkbox" />
         Private
-      </label>
+        </label>
+        <FileUpload></FileUpload>             
     </div>
       </label>
     </div>

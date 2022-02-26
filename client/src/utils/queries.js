@@ -1,5 +1,40 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_ADMIN_TICKETS = gql`
+query adminAllTickets {
+    tickets {
+      _id
+      message
+      unit
+      createdAt
+      status
+      isPrivate
+      title
+      imageName
+      comments {
+        message
+        _id
+        unit
+        createdAt
+      }
+      
+    }
+  }  
+`;
+
+export const QUERY_TICKETS2 = gql`
+query getTickets2($searchForUnit: String, $myUnit: String, $searchMyTickets: Boolean){
+  getTickets2(searchForUnit: $searchForUnit, myUnit: $myUnit, searchMyTickets: $searchMyTickets) {
+    _id
+    unit
+    message
+    createdAt
+    isPrivate
+    imageName
+  }
+}
+`;
+
 export const QUERY_TICKETS = gql`
 query getAllTickets {
     tickets {
@@ -10,6 +45,7 @@ query getAllTickets {
       status
       isPrivate
       title
+      imageName
       comments {
         message
         _id
@@ -30,6 +66,7 @@ query getTicketById($id: ID!) {
       createdAt
       status
       isPrivate
+      imageName
       comments {
         _id
         unit
