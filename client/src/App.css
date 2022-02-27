@@ -13,8 +13,9 @@
 .signup-card {
   /*removed below so error message goes beneath form not to side*/
   /* display: flex; */
-  justify-content: center;
-  align-items: center;
+  /* removed below 2 lines because not needed, div is centered with container */
+  /* justify-content: center;
+  align-items: center; */
   font-size: 1.5rem;
   
  

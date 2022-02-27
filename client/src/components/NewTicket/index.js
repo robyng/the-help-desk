@@ -3,9 +3,7 @@ import React from "react";
 
 function NewTicket() {
   return (
-    <div className='container-fluid'>
-    <div className='row justify-content-evenly'>
-      <div className='login-card col-4'>
+      <div className='login-card col-lg-5 col-md-10 container'>
         <form className='form login-form'>
           <div className='form-group'>
             <label for='title'>Title:</label>
@@ -44,10 +42,7 @@ function NewTicket() {
           </div>
         </form>
       </div>
-  
-      
-    </div>
-  </div>
+
   );
 }
 
