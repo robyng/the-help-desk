@@ -25,7 +25,7 @@ const myBucket = new AWS.S3({
 })
 
 function FileUpload() {
-  console.log(`************** config ${JSON.stringify(config)}`)
+  
   const [progress , setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
 

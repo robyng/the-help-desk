@@ -50,8 +50,7 @@ const FileDownload = ( { imageName } ) => {
             }
         });
 
-        console.log("img is ")
-        console.log(img)
+        
         return img
        
 
@@ -61,7 +60,7 @@ const FileDownload = ( { imageName } ) => {
     return (
         <>
             <form className='bg-white my-4' onSubmit={handleClick}>
-                <input type="text" placeholder={ticketNumber} value={ticketNumber} onChange={changeHandle} />
+                <input type="text" placeholder={ticketNumber} value={ticketNumber} name="imageName" onChange={changeHandle} />
                 <a href="#"
                     value='Download'
                     className='btn btn-primary btn-block mt-3'

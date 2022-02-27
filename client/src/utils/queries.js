@@ -61,7 +61,7 @@ query getTicketById($id: ID!) {
 `;
 
 export const QUERY_ME = gql`
-query User{
+query me{
     me {
       _id
       unit
