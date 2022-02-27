@@ -61,6 +61,8 @@ header span {
   font-size: 20px;
 };
 
+
+
 nav .btn {
   font-size: 20px;
 }
@@ -81,7 +83,11 @@ h1, h2 {
 
 .btn:hover {
   color: white;
-  border: 3px solid white
+  border-bottom: 3px solid white
+}
+
+.active-page {
+  border-bottom: 3px solid white
 }
 
 .ticket-title{
@@ -96,4 +102,8 @@ input[type="checkbox" i]  {
   margin-right: 10px;
   width: 20px;
   height: 20px;
+}
+
+header a {
+  text-decoration: none;
 }
