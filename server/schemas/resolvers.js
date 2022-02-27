@@ -30,6 +30,42 @@ const adminAllTickets = async (parent, args, context) => {
   throw new AuthenticationError("You need to be logged in!");
 };
 
+const ticketHelpersAdmin = async (parent, args, context) => {
+  const searchForUnit = args.searchForUnit;
+  
+  if (context.user) {
+        // if user is logged in they are allowed to search there tickets
+        const myUnit = context.user.unit; // without the if block, the code crashes here
+        const isAdmin = await verifyAdmin(context.user.unit);
+        const specificUser = searchForUnit ? { unit: searchForUnit } : {};
+
+        // get a bool parameter to decide
+        // true -> search my tickets
+        // false ->  search all public tickets
+        const searchMyTickets = args.searchMyTickets;
+        if (isAdmin)
+          // if true search my tickets
+          //if unit is valid, search my tickets -> show all tickets
+          return Ticket.find({ specificUser }).sort({ createdAt: -1 });
+        // else there is no valid user logged in so show all public tickets
+      }
+  
+    return Ticket;
+  
+}
+
+const ticketsHelper = async (parent, args, context) => {
+  if (context.user) {
+    const myUnit = context.user.unit;
+    const searchMyTickets = args.searchMyTickets;
+
+    if (myUnit && searchMyTickets) {
+      return Ticket.find({ unit: myUnit }).sort({ createdAt: -1 });
+    }
+  }
+  return Ticket.find({ isPrivate: { $eq: false}}).sort({createdAt: -1})
+}
+
 const verifyAdmin = async (unitToValidate) => {
   // Input: unit String
   // Output:
@@ -66,25 +102,10 @@ const resolvers = {
     getTickets2: async (parent, args, context) => {
       // if browsing as yourself or not logged in
       // if I am logged in, I have a valid unit, pulled from the header
-
-      if (context.user.unit === "000")
-        return adminAllTickets(parent, args, context);
-
-      if (context.user) {
-        // if user is logged in they are allowed to search there tickets
-        const myUnit = context.user.unit; // without the if block, the code crashes here
-
-        // get a bool parameter to decide
-        // true -> search my tickets
-        // false ->  search all public tickets
-        const searchMyTickets = args.searchMyTickets;
-        if (myUnit && searchMyTickets)
-          // if true search my tickets
-          //if unit is valid, search my tickets -> show all tickets
-          return Ticket.find({ unit: myUnit }).sort({ createdAt: -1 });
-        // else there is no valid user logged in so show all public tickets
+      if (context.user.unit === "000") {
+        return ticketHelpersAdmin(parent, args, context);
       }
-      return Ticket.find({ isPrivate: { $eq: false } }).sort({ createdAt: -1 });
+      return ticketsHelper(parent, args, context);
     },
 
     //get ticket by id

@@ -9,7 +9,7 @@ const TicketList = () => {
   //Show all tickets
   const { loading, data } = useQuery(QUERY_TICKETS2);
 
-  const tickets = data?.tickets || [];
+  const tickets = data?.getTickets2 || [];
 
   if (!tickets) {
     return <h3>No Ticket Yet</h3>;
