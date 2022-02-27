@@ -14,7 +14,6 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
-    imageName: String
     comments: [Comment]
   }
 
@@ -34,8 +33,9 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    adminAllTickets(unit: String, searchForUnit: String): [Ticket]
-    getTickets2(searchForUnit: String, myUnit: String, searchMyTickets: Boolean): [Ticket]
+    adminAllTickets(unit: String, searchForunit: String): [Ticket]
+    tickets(searchMyTickets: Boolean): [Ticket]
+    getTickets(searchMyTickets: Boolean, unit: String, searchForUnit: String): [Ticket]
     ticket(_id: ID!): Ticket
   }
 
@@ -45,7 +45,6 @@ const typeDefs = gql`
       message: String!
       title: String!
       isPrivate: Boolean
-      imageName: String
     ): Ticket
     deleteTicket(_id: String!): Ticket
     updateTicket(

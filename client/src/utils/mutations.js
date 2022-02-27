@@ -63,8 +63,8 @@ mutation deleteTicket($_id: String!){
 `;
 
 export const ADD_TICKET= gql`
-mutation addTicket($message: String!, $unit: String!, $title : String!, $isPrivate: Boolean, $imageName: String) {
-  addTicket(unit: $unit, message:$message, title:$title, isPrivate:$isPrivate, imageName: $imageName) {
+mutation addTicket($message: String!, $unit: String!, $title : String!,, $isPrivate: Boolean) {
+  addTicket(unit: $unit, message:$message, title:$title, isPrivate:$isPrivate) {
     _id
     message
     createdAt
@@ -72,7 +72,6 @@ mutation addTicket($message: String!, $unit: String!, $title : String!, $isPriva
     status
     title
     isPrivate
-    imageName
   }
 }
 `

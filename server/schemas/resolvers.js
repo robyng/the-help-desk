@@ -2,11 +2,26 @@ const { AuthenticationError } = require("apollo-server-express");
 const { User, Ticket, Admin } = require("../models");
 const { signToken } = require("../utils/auth");
 
-// get all tickets, or get all tickets for a specific user by unit
-// *** Does not filter by
-// adminAllTickets: async (parent, { searchForunit }, context) => {
-const adminAllTickets = async (parent, args, context) => {
-  const searchForUnit = args.searchForUnit;
+const verifyAdmin = async (unitToValidate) => {
+  // Input: unit String
+  // Output:
+  // either returns null
+  // or returns an array with an Admin Schema
+  // [{_ID: someAdminId, userId: someUserId }]
+  let userID = await User.findOne({ unit: unitToValidate }); // get userId for next query, to check admin
+  
+  if (!userID) throw new AuthenticationError("Invalid unit or basic user");
+  userID = userID._id;
+  // search admin container for the specific id
+  // if a Id object is returned they are an admin
+  // else if its null/empty they are not an admin
+  const isAdmin = await Admin.find({ userId: { $eq: userID } });
+  if (isAdmin && isAdmin != "undefined" && isAdmin.length > 0) return isAdmin;
+  return null;
+};
+
+const ticketsHelperAdmin = async (parent, args, context) => {
+  const searchForUnit = args.searchForUnit
   if (context.user) {
     // verify the admin is logged in
 
@@ -28,61 +43,29 @@ const adminAllTickets = async (parent, args, context) => {
   }
 
   throw new AuthenticationError("You need to be logged in!");
-};
-
-const ticketHelpersAdmin = async (parent, args, context) => {
-  const searchForUnit = args.searchForUnit;
-  
-  if (context.user) {
-        // if user is logged in they are allowed to search there tickets
-        const myUnit = context.user.unit; // without the if block, the code crashes here
-        const isAdmin = await verifyAdmin(context.user.unit);
-        const specificUser = searchForUnit ? { unit: searchForUnit } : {};
-
-        // get a bool parameter to decide
-        // true -> search my tickets
-        // false ->  search all public tickets
-        const searchMyTickets = args.searchMyTickets;
-        if (isAdmin)
-          // if true search my tickets
-          //if unit is valid, search my tickets -> show all tickets
-          return Ticket.find({ specificUser }).sort({ createdAt: -1 });
-        // else there is no valid user logged in so show all public tickets
-      }
-  
-    return Ticket;
-  
 }
 
 const ticketsHelper = async (parent, args, context) => {
+  // if browsing as yourself or not logged in
+  // if I am logged in, I have a valid unit, pulled from the header
   if (context.user) {
-    const myUnit = context.user.unit;
-    const searchMyTickets = args.searchMyTickets;
+    // if user is logged in they are allowed to search there tickets
+    const myunit = context.user.unit; // without the if block, the code crashes here
 
-    if (myUnit && searchMyTickets) {
-      return Ticket.find({ unit: myUnit }).sort({ createdAt: -1 });
-    }
+    // get a bool parameter to decide
+    // true -> search my tickets
+    // false ->  search all public tickets
+    const searchMyTickets = args.searchMyTickets;
+    if (myunit && searchMyTickets)
+      // if true search my tickets
+      //if unit is valid, search my tickets -> show all tickets
+      return Ticket.find({ unit: myunit }).sort({ createdAt: -1 });
+    // else there is no valid user logged in so show all public tickets
   }
-  return Ticket.find({ isPrivate: { $eq: false}}).sort({createdAt: -1})
+  return Ticket.find({ isPrivate: { $eq: false } }).sort({ createdAt: -1 });
 }
 
-const verifyAdmin = async (unitToValidate) => {
-  // Input: unit String
-  // Output:
-  // either returns null
-  // or returns an array with an Admin Schema
-  // [{_ID: someAdminId, userId: someUserId }]
-  let userID = await User.findOne({ unit: unitToValidate }); // get userId for next query, to check admin
 
-  if (!userID) throw new AuthenticationError("Invalid unit or basic user");
-  userID = userID._id;
-  // search admin container for the specific id
-  // if a Id object is returned they are an admin
-  // else if its null/empty they are not an admin
-  const isAdmin = await Admin.find({ userId: { $eq: userID } });
-  if (isAdmin && isAdmin != "undefined" && isAdmin.length > 0) return isAdmin;
-  return null;
-};
 
 const resolvers = {
   Query: {
@@ -99,13 +82,59 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
-    getTickets2: async (parent, args, context) => {
+    getTickets: async ( parent, args, context) =>{
+      console.log("args" + JSON.stringify(args))
+      console.log("context" + JSON.stringify(context.user))
+      if(context.user.unit === "000")
+        return ticketsHelperAdmin(parent,args,context)
+      return ticketsHelper(parent, args,context)
+
+    },
+
+    // get all tickets, or get all tickets for a specific user by unit
+    // *** Does not filter by
+    adminAllTickets: async (parent, { searchForunit }, context) => {
+      if (context.user) {
+        // verify the admin is logged in
+
+        // search admin container for the specific id
+        // if a Id object is returned they are an admin
+        // else if its null/empty they are not an admin
+        const isAdmin = await verifyAdmin(context.user.unit);
+        // return either {"unit":"mogannam"} or {}
+        // if unit is not empty, then search for one users tickets
+        // if unit is empty search for all users
+        const specificUser = searchForunit ? { unit: searchForunit } : {};
+        // if isAdmin is not empty you are an admin
+        if (isAdmin)
+          // if admin, show anything for aspecific user or annything for all users
+          return Ticket.find(specificUser).sort({ createdAt: -1 });
+        // else you are not an admin, and either an error occured or somehow a regular user got thru
+        // so return nothing
+        return Ticket;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    tickets: async (parent, args, context) => {
       // if browsing as yourself or not logged in
       // if I am logged in, I have a valid unit, pulled from the header
-      if (context.user.unit === "000") {
-        return ticketHelpersAdmin(parent, args, context);
+     
+      if (context.user) {
+        // if user is logged in they are allowed to search there tickets
+        const myunit = context.user.unit; // without the if block, the code crashes here
+
+        // get a bool parameter to decide
+        // true -> search my tickets
+        // false ->  search all public tickets
+        const searchMyTickets = args.searchMyTickets;
+        if (myunit && searchMyTickets)
+          // if true search my tickets
+          //if unit is valid, search my tickets -> show all tickets
+          return Ticket.find({ unit: myunit }).sort({ createdAt: -1 });
+        // else there is no valid user logged in so show all public tickets
       }
-      return ticketsHelper(parent, args, context);
+      return Ticket.find({ isPrivate: { $eq: false } }).sort({ createdAt: -1 });
     },
 
     //get ticket by id
@@ -114,11 +143,11 @@ const resolvers = {
       return Ticket.findOne({ _id });
     },
 
-    // //get ticket by id
-    // //todo: prevent regular user from seeing private tickets
-    // ticket: async (parent, { _id }) => {
-    //   return Ticket.findOne({ _id });
-    // },
+    //get ticket by id
+    //todo: prevent regular user from seeing private tickets
+    ticket: async (parent, { _id }) => {
+      return Ticket.findOne({ _id });
+    },
   },
 
   Mutation: {
@@ -137,7 +166,7 @@ const resolvers = {
             { _id: context.user._id },
             { $pull: { tickets: ticket._id } },
             { new: true }
-          );
+         );
           return Ticket.findOneAndDelete({ ...args });
         }
         // else when deleting, filter by unit on the ticket and ticketid
@@ -167,9 +196,9 @@ const resolvers = {
           unit: context.user.unit,
         });
         await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { tickets: ticket._id } },
-          { new: true }
+           { _id: context.user._id },
+           { $push: { tickets: ticket._id } },
+           { new: true }
         );
 
         return ticket;
@@ -233,13 +262,11 @@ const resolvers = {
         return updatedTicket;
       }
 
-      throw new AuthenticationError(
-        "You need to be logged in to comment on a ticket!"
-      );
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
     },
     // ****** End addComment
     //####### Beg updateComment
-    updateComment: async (parent, { message, commentId }, context) => {
+    updateComment: async (parent, {message, commentId }, context) => {
       if (context.user) {
         const updateComment = await Comment.findOneAndUpdate(
           { _id: commentId },
@@ -250,12 +277,12 @@ const resolvers = {
         return updateComment;
       }
 
-      throw new AuthenticationError(
-        "You need to be logged in to comment on a ticket!"
-      );
+      throw new AuthenticationError('You need to be logged in to comment on a ticket!');
     },
     // ###### End update Comment
-  },
+    
+
+  }
 };
 
 module.exports = resolvers;
