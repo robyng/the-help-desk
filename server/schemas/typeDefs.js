@@ -35,6 +35,7 @@ const typeDefs = gql`
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
     tickets(searchMyTickets: Boolean): [Ticket]
+    getTickets(searchMyTickets: Boolean, unit: String, searchForUnit: String): [Ticket]
     ticket(_id: ID!): Ticket
   }
 

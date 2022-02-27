@@ -20,6 +20,53 @@ const verifyAdmin = async (unitToValidate) => {
   return null;
 };
 
+const ticketsHelperAdmin = async (parent, args, context) => {
+  const searchForUnit = args.searchForUnit
+  if (context.user) {
+    // verify the admin is logged in
+
+    // search admin container for the specific id
+    // if a Id object is returned they are an admin
+    // else if its null/empty they are not an admin
+    const isAdmin = await verifyAdmin(context.user.unit);
+    // return either {"unit":"mogannam"} or {}
+    // if unit is not empty, then search for one users tickets
+    // if unit is empty search for all users
+    const specificUser = searchForUnit ? { unit: searchForUnit } : {};
+    // if isAdmin is not empty you are an admin
+    if (isAdmin)
+      // if admin, show anything for aspecific user or annything for all users
+      return Ticket.find(specificUser).sort({ createdAt: -1 });
+    // else you are not an admin, and either an error occured or somehow a regular user got thru
+    // so return nothing
+    return Ticket;
+  }
+
+  throw new AuthenticationError("You need to be logged in!");
+}
+
+const ticketsHelper = async (parent, args, context) => {
+  // if browsing as yourself or not logged in
+  // if I am logged in, I have a valid unit, pulled from the header
+  if (context.user) {
+    // if user is logged in they are allowed to search there tickets
+    const myunit = context.user.unit; // without the if block, the code crashes here
+
+    // get a bool parameter to decide
+    // true -> search my tickets
+    // false ->  search all public tickets
+    const searchMyTickets = args.searchMyTickets;
+    if (myunit && searchMyTickets)
+      // if true search my tickets
+      //if unit is valid, search my tickets -> show all tickets
+      return Ticket.find({ unit: myunit }).sort({ createdAt: -1 });
+    // else there is no valid user logged in so show all public tickets
+  }
+  return Ticket.find({ isPrivate: { $eq: false } }).sort({ createdAt: -1 });
+}
+
+
+
 const resolvers = {
   Query: {
     // if user is logged in send back the data of the logged in user
@@ -33,6 +80,15 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+
+    getTickets: async ( parent, args, context) =>{
+      console.log("args" + JSON.stringify(args))
+      console.log("context" + JSON.stringify(context.user))
+      if(context.user.unit === "000")
+        return ticketsHelperAdmin(parent,args,context)
+      return ticketsHelper(parent, args,context)
+
     },
 
     // get all tickets, or get all tickets for a specific user by unit
@@ -63,6 +119,7 @@ const resolvers = {
     tickets: async (parent, args, context) => {
       // if browsing as yourself or not logged in
       // if I am logged in, I have a valid unit, pulled from the header
+     
       if (context.user) {
         // if user is logged in they are allowed to search there tickets
         const myunit = context.user.unit; // without the if block, the code crashes here

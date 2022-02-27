@@ -1,17 +1,18 @@
 import React from "react";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_TICKETS } from "../../utils/queries";
+import { QUERY_TICKETS2 } from "../../utils/queries";
 
 const TicketList = () => {
   //Show all tickets
-  const { loading, data } = useQuery(QUERY_TICKETS);
+  const { loading, data } = useQuery(QUERY_TICKETS2);
 
-  const tickets = data?.tickets || [];
+  const tickets = data?.getTickets || [];
 
   if (!tickets) {
     return <h3>No Ticket Yet</h3>;
   }
+  console.log(`tickets ` + JSON.stringify(data))
 
   return (
     <div>
@@ -23,7 +24,7 @@ const TicketList = () => {
             <h3 className="ticket-title">{ticket.title}</h3>
             <div key={ticket._id} className="card mb-3">
               <p className="ticket-header">
-                Unit: {ticket.unit}
+                Unit: {ticket.unit} | {JSON.stringify(ticket.isPrivate)}
                 <br />
                 Ticket on {ticket.createdAt}
               </p>
