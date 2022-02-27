@@ -13,7 +13,7 @@ db.once("open", async () => {
 
   for (let i = 0; i < 50; i += 1) {
     const unit = ""+i
-    console.log(`unit ${unit}`)
+    
     const email = faker.internet.email(unit);
     const password = faker.internet.password();
 

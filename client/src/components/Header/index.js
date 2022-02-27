@@ -12,3 +12,29 @@ function Header(props) {
 }
 
 export default Header;
+
+/*
+
+
+
+
+ <>
+            <Link to="/"><h1>The Help Desk</h1></Link>
+            <nav>
+            {Auth.loggedIn() ? (
+            <>
+              <Link to="/Dashboard">Dashboard</Link>
+              <a href="/" onClick={logout}>Logout</a>
+              <Link to="/NewTicket">NewTicket</Link>
+            </>
+            ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Signup</Link>
+            </>
+          )}
+            
+            </nav>
+
+        </>
+*/

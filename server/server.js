@@ -32,7 +32,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")));
 }
-console.log("right before opening the db")
 // app.get("*", (req, res) => {
     
 //     db.once("open", () => {
@@ -46,4 +45,4 @@ db.once('open', () => {
     });
   });
 
-console.log('after closing the DB')
+

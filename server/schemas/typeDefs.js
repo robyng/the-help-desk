@@ -14,6 +14,7 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
+    imageName: String
     comments: [Comment]
   }
 
@@ -41,10 +42,12 @@ const typeDefs = gql`
 
   type Mutation {
     addTicket(
-      unit: String!
+      unit: String
       message: String!
+      category: String!
       title: String!
-      isPrivate: Boolean
+      isPrivate: Boolean!
+      imageName: String
     ): Ticket
     deleteTicket(_id: String!): Ticket
     updateTicket(
