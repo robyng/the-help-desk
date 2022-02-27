@@ -3,45 +3,47 @@ import React from "react";
 
 function NewTicket() {
   return (
-      <div className='login-card col-lg-5 col-md-10 container'>
-        <form className='form login-form'>
-          <div className='form-group'>
-            <label for='title'>Title:</label>
-            <input className='form-input' type='text' id='title' />
-          </div>
-          <div className='form-group'>
-            <label for='message'>Message:</label>
-          </div>
-          <textarea
-        
+    <div className='login-card col-lg-5 col-md-10 container'>
+      <form className='form login-form'>
+        <div className='form-group'>
+          <label for='title'>Title:</label>
+          <input className='form-input' type='text' id='title' />
+        </div>
+        <div className='form-group'>
+          <label for='message'>Message:</label>
+        </div>
+        <textarea
+
           className="form-input col-12 col-md-12"
-          
+
         ></textarea>
-          <div className='form-group'>
-            <button className='btn' type='submit'>Submit</button>
-            <div>
+        <div className='form-group'>
+          <div>
             <div class="container mt-12" >
-      <label className="col-sm-8" >
-        Category:
-        <select className="col-sm-8"  >
-          <option value="plumbing">Plumbing</option>
-          <option value="eletrical">Eletrical</option>
-          <option value="cleaning">Cleaning</option>
-          <option value="financial">Financial</option>
-          <option value="socialareas">Social Areas</option>
-        </select>
-        <div>
-      <label>
-        <input type="checkbox" />
-        Private
-      </label>
-    </div>
-      </label>
-    </div>
-    </div>
+              <label className="col-sm-8" >
+                Category:
+                <br/>  
+                <select className="col-sm-8"  >
+                  <option value="plumbing">Plumbing</option>
+                  <option value="eletrical">Eletrical</option>
+                  <option value="cleaning">Cleaning</option>
+                  <option value="financial">Financial</option>
+                  <option value="socialareas">Social Areas</option>
+                </select>
+                <div>
+                  <br/>
+                  <label>
+                    <input type="checkbox" value="private" />
+                    Private Message
+                  </label>
+                </div>
+              </label>
+            </div>
           </div>
-        </form>
-      </div>
+          <button className='btn' type='submit'>Submit</button>
+        </div>
+      </form>
+    </div>
 
   );
 }
