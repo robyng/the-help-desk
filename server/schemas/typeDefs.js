@@ -51,8 +51,8 @@ const typeDefs = gql`
     ): Ticket
     deleteTicket(_id: String!): Ticket
     updateTicket(
-      unit: String!
-      message: String!
+      unit: String
+      message: String
       _id: String!
       isPrivate: Boolean
       status: String
