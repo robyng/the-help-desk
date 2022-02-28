@@ -6,7 +6,6 @@ import Auth from '../../utils/auth';
 function Signup() {
   const [formState, setFormState] = useState({
     unit: '',
-    // username: '',
     email: '',
     password: '',
   });
@@ -37,32 +36,26 @@ function Signup() {
     }
   };
   return (
-    <div className='container-fluid'>
-  <div className='row justify-content-evenly'>
-  <div className='signup-card col-4'>
-      <form className='form signup-form' onSubmit={handleFormSubmit}>
-        <div className='form-group'>
-          <label for='unit-signup'>Unit:</label>
-          <input className='form-input' type='number' id='unit-signup' name="unit" value={formState.unit} onChange={handleChange}  />
+        <div className='signup-card col-lg-4 col-md-10 container'>
+          <form className='form signup-form' onSubmit={handleFormSubmit}>
+            <div className='form-group'>
+              <label for='unit-signup'>Unit:</label>
+              <input className='form-input' type='number' id='unit-signup' name="unit" value={formState.unit} onChange={handleChange} />
+            </div>
+            <div className='form-group'>
+              <label for='email-signup'>Email:</label>
+              <input className='form-input' type='text' id='email-signup' name="email" value={formState.email} onChange={handleChange} />
+            </div>
+            <div className='form-group'>
+              <label for='password-signup'>Password:</label>
+              <input className='form-input' type='password' id='password-signup' name="password" value={formState.password} onChange={handleChange} />
+            </div>
+            <div className='form-group'>
+              <button className='btn' type='submit'>Signup</button>
+            </div>
+          </form>
+          {error && <div><h1>Signup failed</h1></div>}
         </div>
-        <div className='form-group'>
-          <label for='email-signup'>Email:</label>
-          <input className='form-input'  type='text' id='email-signup' name="email" value={formState.email} onChange={handleChange} />
-        </div>
-        <div className='form-group'>
-          <label for='password-signup'>Password:</label>
-          <input className='form-input' type='password' id='password-signup' name="password" value={formState.password} onChange={handleChange} />
-        </div>
-        <div className='form-group'>
-          <button className='btn' type='submit'>Signup</button>
-        </div>
-      </form>
-      {error && <div><h1>Signup failed</h1></div>}
-    </div>
-
-    
-  </div>
-</div>
   );
 }
 
