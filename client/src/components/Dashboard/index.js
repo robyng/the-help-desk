@@ -18,6 +18,8 @@ function Dashboard() {
     const tickets = data?.getTickets || [];
     if (error1 || error2)
         throw new Error ("Error in graph ql : " + error1 + error2)
+
+        
     return (
         <div>
             <h1>Dashboard</h1>

@@ -75,12 +75,12 @@ const resolvers = {
   Query: {
     // if user is logged in send back the data of the logged in user
     me: async (parent, args, context) => {
-      console.log("----- in resolvers.js, in me query, context.user is ", JSON.stringify(context.user))
+      //console.log("----- in resolvers.js, in me query, context.user is ", JSON.stringify(context.user))
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
           //.populate("tickets");
-        console.log("----- in resolvers.js, in me query, userData is ", JSON.stringify(userData))
+        //console.log("----- in resolvers.js, in me query, userData is ", JSON.stringify(userData))
         return userData;
       }
 
@@ -206,7 +206,7 @@ const resolvers = {
            { $push: { tickets: ticket._id } },
            { new: true }
         );
-
+        console.log(`in Resolvers.js ticket is --> \n\n\n \t\t ${ticket}`)
         return ticket;
       }
       console.log("You need to be logged in!")

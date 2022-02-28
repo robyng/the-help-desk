@@ -55,6 +55,7 @@ const typeDefs = gql`
       message: String!
       _id: String!
       isPrivate: Boolean
+      status: String
     ): Ticket
     login(email: String!, password: String!): Auth
     addUser(
