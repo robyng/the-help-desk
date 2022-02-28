@@ -6,7 +6,7 @@ import FileDownload from "../FileDownload";
 
 const TicketList = ({ tickets }) => {
   const [formState, setFormState] = useState({
-    _id: '',
+    //_id: '',
     status: ''
   });
 
@@ -15,9 +15,29 @@ const TicketList = ({ tickets }) => {
 
   })
 
-  const [_id, setTicketId] = useState({
-    _id: ''
-  })
+  const [updateTicket, { error }] = useMutation(UPDATE_TICKET, {
+    update(cache, { data: { updateTicket } }) {
+      try {
+        // update tickets array's cache
+        // could potentially not exist yet, so wrap in a try/catch
+
+        let { getTickets } = cache.readQuery({ query: QUERY_TICKETS2 });
+
+        cache.writeQuery({
+          query: QUERY_TICKETS2,
+          data: { getTickets: [updateTicket, ...getTickets] },
+        });
+      } catch (e) {
+        console.error(">>>>>>>> catching error ", e, " | ", error);
+      }
+
+    },
+  });
+
+
+  // const [_id, setTicketId] = useState({
+  //   _id: ''
+  // })
 
   const handleChange = async (event) => {
     const { name, value } = event.target;
@@ -29,34 +49,20 @@ const TicketList = ({ tickets }) => {
 
 
   };
-  // const [updateTicket, { error }] = useMutation(UPDATE_TICKET, {
-  //   update(cache, { data: { updateTicket } }) {
-  //     try {
-  //       // update tickets array's cache
-  //       // could potentially not exist yet, so wrap in a try/catch
-  //       let { getTickets } = cache.readQuery({ query: QUERY_TICKETS2 });
 
-  //       cache.writeQuery({
-  //         query: QUERY_TICKETS2,
-  //         data: { getTickets: [updateTicket, ...getTickets] },
-  //       });
-  //     } catch (e) {
-  //       console.error(">>>>>>>> catching error ", e, " | ", error);
-  //     }
-
-  //   },
-  // });
-
-//}
 
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-
+  //console.log(event.target.elements._id.value)
+  let tempId
+  if(event.target.elements._id.value)
+    tempId = event.target.elements._id.value
+  let tempData
   try {
-    const { data } = await UPDATE_TICKET({
-      variables: { ...formState },
-    });
-
+    if(tempId)
+      tempData  = await updateTicket({
+        variables: { ...formState, _id: tempId },
+      });
 
   } catch (e) {
     console.error(e);
@@ -84,8 +90,8 @@ return (
         <h3 className="ticket-title">{ticket.title} Status: {ticket.status}</h3>
         <h3 className="ticket-title">Update Status</h3>
         <form onSubmit={handleFormSubmit}>
-          <input value={ticket._id} name='_id'></input>
-          <select name="status" onChange={handleChange(ticket._id)}>
+          <input type="" className="status" value={ticket._id} name='_id'></input>
+          <select name="status" onChange={handleChange}>
 
             <option value="open">Open</option>
             <option value="in-progress">In Progress</option>
