@@ -13,11 +13,10 @@
 .signup-card {
   /*removed below so error message goes beneath form not to side*/
   /* display: flex; */
-  justify-content: center;
-  align-items: center;
+  /*removed below, it is centered with container*/
+  /* justify-content: center;
+  align-items: center; */
   font-size: 1.5rem;
-  
- 
   padding: 5px;
   border: 1px solid var(--dark); 
   border-radius: var(--border-radius);
@@ -43,6 +42,7 @@
 /* for landscape image */
 .hero { 
   background-image: url("../src/assets/images/pexels-kehn-hermano-5962574.jpg");
+  background-attachment: fixed;
   padding: 20px;
   background-size: cover;
   min-height: 100%;
@@ -59,6 +59,8 @@ header span {
   color: white;
   font-size: 20px;
 };
+
+
 
 nav .btn {
   font-size: 20px;
@@ -78,9 +80,14 @@ h1, h2 {
  padding: 45px;
 }
 
-.btn:hover {
+header .btn:hover {
   color: white;
-  border: 3px solid white
+  border-bottom: 3px solid white
+}
+
+/*for current page */
+header .active-page {
+  border-bottom: 3px solid white
 }
 
 .ticket-title{
@@ -89,4 +96,15 @@ h1, h2 {
 
 .ticket-header{
   background-color: var(--primary);
+}
+
+header a {
+  text-decoration: none;
+}
+
+/*make checkbox bigger*/
+input[type="checkbox" i]  {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
