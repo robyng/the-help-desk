@@ -101,3 +101,10 @@ header .active-page {
 header a {
   text-decoration: none;
 }
+
+/*make checkbox bigger*/
+input[type="checkbox" i]  {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
