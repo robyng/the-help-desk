@@ -17,6 +17,11 @@ const typeDefs = gql`
     imageName: String
     comments: [Comment]
   }
+  type Users {
+    _id: ID
+    email: String
+    unit: String
+  }
 
   type User {
     _id: ID
@@ -24,6 +29,7 @@ const typeDefs = gql`
     email: String
     tickets: [Ticket]
   }
+  
   type Comment {
     _id: ID
     message: String
@@ -38,6 +44,7 @@ const typeDefs = gql`
     tickets(searchMyTickets: Boolean): [Ticket]
     getTickets(searchMyTickets: Boolean, unit: String, searchForUnit: String): [Ticket]
     ticket(_id: ID!): Ticket
+    users: [Users]
   }
 
   type Mutation {
@@ -57,13 +64,16 @@ const typeDefs = gql`
       isPrivate: Boolean
       status: String
     ): Ticket
+    
     login(email: String!, password: String!): Auth
+    
     addUser(
       unit: String!
       email: String!
       password: String!
       isAdmin: Boolean
     ): Auth
+
     addComment(ticketId: String!, message: String!): Ticket
     updateComment(message: String!, commentId: String!): Ticket
   }

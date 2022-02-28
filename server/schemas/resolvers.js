@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Ticket, Admin, CommentsSchema } = require("../models");
+const {  User, Ticket, Admin, CommentsSchema } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const verifyAdmin = async (unitToValidate) => {
@@ -152,6 +152,11 @@ const resolvers = {
     ticket: async (parent, { _id }) => {
       return Ticket.findOne({ _id });
     },
+
+    // get all users - RMG
+    users: async() => {
+      return User.find().sort({ createdAt: -1});
+    }
   },
 
   Mutation: {

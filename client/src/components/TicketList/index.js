@@ -10,22 +10,21 @@ const TicketList = ({ tickets }) => {
     status: ''
   });
 
-  const [status, setStatus] = useState({
-    status: ''
+const [updateTicket] = useMutation(UPDATE_TICKET)
 
-  })
+  const handleChange = async (event, _id) => {
+    // const { name, value } = event.target;
 
-  const [_id, setTicketId] = useState({
-    _id: ''
-  })
+    // setStatus({
+    //   ...status,
+    //   [name]: value,
+    // });
 
-  const handleChange = async (event) => {
-    const { name, value } = event.target;
+    // targets the dropdown options
+    const index = event.target.selectedIndex
+    const status = event.target.options[index].textContent
 
-    setStatus({
-      ...status,
-      [name]: value,
-    });
+    setFormState({status, _id})
 
 
   };
@@ -53,10 +52,11 @@ const handleFormSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    const { data } = await UPDATE_TICKET({
+    console.log(formState)
+    const { data } = await updateTicket({
       variables: { ...formState },
     });
-
+console.log(data)
 
   } catch (e) {
     console.error(e);
@@ -85,7 +85,7 @@ return (
         <h3 className="ticket-title">Update Status</h3>
         <form onSubmit={handleFormSubmit}>
           <input value={ticket._id} name='_id'></input>
-          <select name="status" onChange={handleChange(ticket._id)}>
+          <select name="status" onChange={(e)=>handleChange(e, ticket._id)}>
 
             <option value="open">Open</option>
             <option value="in-progress">In Progress</option>

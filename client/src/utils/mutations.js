@@ -13,12 +13,13 @@ mutation login($email: String!, $password: String!) {
 `;
 
 export const ADD_USER = gql`
-mutation addUser($unit: String!,$email: String!, $password: String!,$isAdmin: Boolean) {
+mutation addUser($unit: String!, $email: String!, $password: String!, $isAdmin: Boolean) {
     addUser(unit: $unit, email: $email, password: $password, isAdmin: $isAdmin) {
       token
       user {
         unit
         _id
+        email
       }
     }
   }

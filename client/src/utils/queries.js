@@ -81,3 +81,14 @@ query me{
     } 
   }
 `;
+
+export const QUERY_USER = gql`
+query user($email: String!){
+    user(email: $email){
+      _id
+      unit
+      email
+      
+  }
+}
+`;

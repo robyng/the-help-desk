@@ -27,6 +27,7 @@ function Login() {
       });
 
       Auth.login(data.login.token);
+      Auth.saveInfo(data.login.user)
     } catch (e) {
       console.error(e);
     }
