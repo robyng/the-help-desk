@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import NewTicket from "./components/NewTicket";
+import SingleTicket from "./components/SingleTicket";
+import Account from "./components/Account";
 import React, { useState } from "react";
 import Auth from './utils/auth';
 import {
@@ -17,6 +19,7 @@ import {
 } from '@apollo/client';
 
 import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 const httpLink = createHttpLink({
@@ -54,12 +57,15 @@ function App() {
         return <NewTicket />;
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
+  } else if (currentPage === "Account" && Auth.loggedIn()) {
+    return <Account />;
   } else {
     return <Login></Login>
   } 
   }
   return (
     <ApolloProvider client={client}>
+
     <div>
       <div className="hero">
       <Header>
@@ -73,10 +79,26 @@ function App() {
       {displayPage()}
       </div>
       
+      <Router>
+  
+        <div className="container">
+         
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/newticket" component={NewTicket} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/ticket" component={SingleTicket} />
+            <Route exact path="/account" component={Account} />
+       </div>
+      
+      </Router>
 
       </div>
       
     </div>
+
+    
+    
 </ApolloProvider>
   );
 }
