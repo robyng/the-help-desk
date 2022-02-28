@@ -39,9 +39,8 @@ function Login() {
   };
 
   return (
-    <div className='container-fluid'>
-  <div className='row justify-content-evenly'>
-    <div className='login-card col-4'>
+
+    <div className='login-card col-lg-4 col-md-10 container'>
       <form onSubmit={handleFormSubmit}className='form login-form'>
         <div className='form-group'>
           <label htmlFor='email-login'>Email:</label>
@@ -57,10 +56,6 @@ function Login() {
       </form>
       {error && <div>Login failed</div>}
     </div>
-
-    
-  </div>
-</div>
   );
 }
 
