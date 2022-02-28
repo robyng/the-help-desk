@@ -6,8 +6,55 @@ import { QUERY_TICKETS2, QUERY_ME } from "../../utils/queries";
 import FileUpload from "../FileUpload";
 import Auth from '../../utils/auth';
 import FileDownload from "../FileDownload";
+import { uploadFile } from 'aws-sdk';
+
+var AWS = require("aws-sdk");
+const config = {
+  bucketName: process.env.REACT_APP_BUCKET_NAME,
+  dirName: process.env.REACT_APP_DIR_NAME /* optional */,
+  region: process.env.REACT_APP_REGION,
+  accessKeyId: process.env.REACT_APP_ACCESS_ID,
+  secretAccessKey: process.env.REACT_APP_ACCESS_KEY
+};
+AWS.config.update({
+  accessKeyId: config.accessKeyId,
+  secretAccessKey: config.secretAccessKey
+})
+const myBucket = new AWS.S3({
+  params: { Bucket: config.bucketName},
+  region: config.region,
+})
 
 function NewTicket() {
+
+  const [progress , setProgress] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileInput = (e) => {
+      setSelectedFile(e.target.files[0]);
+  }
+
+  const uploadFile = (filePrefix, file) => {
+      // filePrefix is the ticket name
+      // where file is the entire file as a blob, and it has a non unique file name
+      const params = {
+          ACL: 'public-read',
+          Body: file,
+          Bucket: config.bucketName,
+          Key: `${filePrefix}\\${file.name}`,
+          
+      };
+
+      myBucket.putObject(params)
+          .on('httpUploadProgress', (evt) => {
+              setProgress(Math.round((evt.loaded / evt.total) * 100))
+          })
+          .send((err) => {
+              if (err) console.log(err)
+          })
+  }
+
+  
 
   const loggedIn = Auth.loggedIn();
 
@@ -39,12 +86,6 @@ function NewTicket() {
         console.error(">>>>>>>> catching error ", e, " | ", error);
       }
 
-      // // update me object's cache
-      // const { me } = cache.readQuery({ query: QUERY_ME });
-      // cache.writeQuery({
-      //   query: QUERY_ME,
-      //   data: { me: { ...me, tickets: [...me.tickets, addTicket] } },
-      // });
     },
   });
 
@@ -60,14 +101,22 @@ function NewTicket() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    let tempData
     try {
-      console.log("enter try block")
-
-      const { data } = await addTicket({
-        variables: { ...formState },
+      if(selectedFile.name)
+         tempData  = await addTicket({
+          variables: { ...formState, imageName: selectedFile.name }
+        });
+      else
+      tempData = await addTicket({
+        variables: { ...formState, }
       });
+      const {data} = tempData; 
+      
 
+      console.log.apply(`n\n\n ---->>>>data : ${JSON.stringify(data)}`)
+      uploadFile(data.addTicket._id, selectedFile)
+     
     } catch (e) {
       console.error(e);
     }
@@ -115,7 +164,8 @@ function NewTicket() {
                       </label>
                       <br/>
                       <br/>
-                      <FileUpload></FileUpload>
+                      <div>File Upload Progress is {progress}%</div>
+                      <input type="file" onChange={handleFileInput}/>
 
 
                     </div>

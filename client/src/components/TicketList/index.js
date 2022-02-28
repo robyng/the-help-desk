@@ -29,7 +29,7 @@ const TicketList = ({tickets}) => {
                 <p>{ticket.message}</p>
                 <p className="mb-0">
                   Comment: {ticket.commentCount} || Click to{" "}
-                  {ticket.imageName ? <FileDownload></FileDownload> : "" }
+                  {ticket.imageName ? <FileDownload imageName={ticket.imageName} imagePrefix={ticket._id}></FileDownload> : "" }
                   {ticket.commentCount ? "see" : "start"} the discussion!
                 </p>
               </div>
