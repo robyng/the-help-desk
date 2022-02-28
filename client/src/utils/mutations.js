@@ -25,8 +25,8 @@ mutation addUser($unit: String!,$email: String!, $password: String!,$isAdmin: Bo
 `;
 
 export const UPDATE_TICKET = gql`
-mutation updateTicket($message: String!, $unit: String!, $id: String!, $isPrivate: Boolean) {
-    updateTicket(unit: $unit, message:$message, _id:$id, isPrivate:$isPrivate) {
+mutation updateTicket($message: String, $unit: String, $_id: String!, $isPrivate: Boolean, $status: String) {
+    updateTicket(unit: $unit, message: $message, _id: $_id, isPrivate: $isPrivate, status: $status ) {
       _id
       message
       createdAt
