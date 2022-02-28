@@ -44,6 +44,7 @@
 /* for landscape image */
 .hero { 
   background-image: url("../src/assets/images/pexels-kehn-hermano-5962574.jpg");
+  background-attachment: fixed;
   padding: 20px;
   background-size: cover;
   min-height: 100%;
