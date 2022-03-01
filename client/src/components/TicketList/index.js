@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_TICKETS2 } from "../../utils/queries";
 import FileDownload from "../FileDownload";
 
-const TicketList = ({ tickets }) => {
+const TicketList = ({ tickets, refetch }) => {
   const [formState, setFormState] = useState({
     _id: '',
     status: ''
@@ -37,7 +37,7 @@ const handleFormSubmit = async (event) => {
     const { data } = await updateTicket({
       variables: { ...formState },
     });
-console.log(data)
+    refetch()
 
   } catch (e) {
     console.error(e);

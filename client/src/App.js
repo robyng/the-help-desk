@@ -63,7 +63,6 @@ function App() {
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
   }  else if (currentPage === "Account" && Auth.loggedIn()) {
-    console.log(Auth.getInfo().unit)
     return Auth.getInfo().unit === '000'?<AdminAccount/>:<Account />;
   }else if (currentPage === "Logout") {
     /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
