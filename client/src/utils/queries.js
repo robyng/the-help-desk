@@ -10,6 +10,7 @@ query getTickets($searchMyTickets: Boolean, $unit: String, $searchForUnit: Strin
       status
       isPrivate
       title
+      imageName
       comments {
         message
         _id

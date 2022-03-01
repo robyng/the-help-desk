@@ -98,23 +98,3 @@ return (
 };
 
 export default TicketList;
-
-  // const [updateTicket, { error }] = useMutation(UPDATE_TICKET, {
-  //   update(cache, { data: { updateTicket } }) {
-  //     try {
-  //       // update tickets array's cache
-  //       // could potentially not exist yet, so wrap in a try/catch
-  //       let { getTickets } = cache.readQuery({ query: QUERY_TICKETS2 });
-
-  //       cache.writeQuery({
-  //         query: QUERY_TICKETS2,
-  //         data: { getTickets: [updateTicket, ...getTickets] },
-  //       });
-  //     } catch (e) {
-  //       console.error(">>>>>>>> catching error ", e, " | ", error);
-  //     }
-
-  //   },
-  // });
-
-//}
