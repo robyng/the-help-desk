@@ -6,6 +6,7 @@ mutation login($email: String!, $password: String!) {
       token
       user {
         _id
+        unit
       }
     }
   }
@@ -32,6 +33,7 @@ mutation updateTicket($message: String!, $unit: String!, $id: String!, $isPrivat
       unit
       status
       isPrivate
+      imageName
       
     }
   }
@@ -55,9 +57,31 @@ export const DELETE_COMMENT= gql`
 mutation deleteTicket($_id: String!){
     deleteTicket(_id: $_id) {
       _id
-      username
+      unit
       message
       createdAt
     }
   }
 `;
+
+export const ADD_TICKET= gql`
+mutation addTicket($message: String!, $unit: String, $title : String!, $category: String!,$isPrivate: Boolean!, $imageName: String) {
+  addTicket(unit: $unit, message:$message, title:$title, category:$category, isPrivate:$isPrivate, imageName: $imageName) {
+    _id
+    message
+    createdAt
+    unit
+    status
+    title
+    isPrivate
+    imageName
+    comments{
+      _id
+      message
+      createdAt
+      unit
+    }
+    
+  }
+}
+`

@@ -14,6 +14,7 @@ const typeDefs = gql`
     unit: String
     status: String
     isPrivate: Boolean
+    imageName: String
     comments: [Comment]
   }
 
@@ -29,21 +30,24 @@ const typeDefs = gql`
     createdAt: String
     unit: String
   }
- 
+
 
   type Query {
     me: User
     adminAllTickets(unit: String, searchForunit: String): [Ticket]
     tickets(searchMyTickets: Boolean): [Ticket]
+    getTickets(searchMyTickets: Boolean, unit: String, searchForUnit: String): [Ticket]
     ticket(_id: ID!): Ticket
   }
 
   type Mutation {
     addTicket(
-      unit: String!
+      unit: String
       message: String!
+      category: String!
       title: String!
-      isPrivate: Boolean
+      isPrivate: Boolean!
+      imageName: String
     ): Ticket
     deleteTicket(_id: String!): Ticket
     updateTicket(
@@ -51,6 +55,7 @@ const typeDefs = gql`
       message: String!
       _id: String!
       isPrivate: Boolean
+      status: String
     ): Ticket
     login(email: String!, password: String!): Auth
     addUser(

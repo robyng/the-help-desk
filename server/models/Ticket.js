@@ -46,6 +46,9 @@ const ticketSchema = new Schema(
       required:
         "The post is missing True/False, does the post contain confidential info",
     },
+    imageName: {
+      type: String
+    },
 
     comments: [commentSchema]
   },
