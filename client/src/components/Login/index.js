@@ -27,6 +27,8 @@ function Login() {
       });
 
       Auth.login(data.login.token);
+      //setItem user to localStorage 
+      Auth.saveInfo(data.login.user)
     } catch (e) {
       console.error(e);
     }

@@ -45,6 +45,14 @@ class AuthService {
         localStorage.removeItem("id_token");
         window.location.assign("/");
     }
+
+    saveInfo(user){
+        localStorage.setItem("user", JSON.stringify(user))
+    }
+
+    getInfo(){
+        return JSON.parse(localStorage.getItem("user"))
+    }
 }
 
 export default new AuthService();

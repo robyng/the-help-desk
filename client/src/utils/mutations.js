@@ -13,20 +13,21 @@ mutation login($email: String!, $password: String!) {
 `;
 
 export const ADD_USER = gql`
-mutation addUser($unit: String!,$email: String!, $password: String!,$isAdmin: Boolean) {
+mutation addUser($unit: String!, $email: String!, $password: String!, $isAdmin: Boolean) {
     addUser(unit: $unit, email: $email, password: $password, isAdmin: $isAdmin) {
       token
       user {
         unit
         _id
+        email
       }
     }
   }
 `;
 
 export const UPDATE_TICKET = gql`
-mutation updateTicket($message: String!, $unit: String!, $id: String!, $isPrivate: Boolean) {
-    updateTicket(unit: $unit, message:$message, _id:$id, isPrivate:$isPrivate) {
+mutation updateTicket($message: String, $unit: String, $_id: String!, $isPrivate: Boolean, $status: String) {
+    updateTicket(unit: $unit, message: $message, _id: $_id, isPrivate: $isPrivate, status: $status ) {
       _id
       message
       createdAt
@@ -85,3 +86,13 @@ mutation addTicket($message: String!, $unit: String, $title : String!, $category
   }
 }
 `
+
+export const DELETE_USER= gql`
+mutation deleteUser($_id: String!){
+    deleteUser(_id: $_id) {
+      _id
+      unit
+      email
+    }
+  }
+`;
