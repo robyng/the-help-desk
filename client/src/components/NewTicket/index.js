@@ -51,32 +51,10 @@ function NewTicket() {
           })
   }
 
-  const [progress , setProgress] = useState(0);
-  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileInput = (e) => {
-      setSelectedFile(e.target.files[0]);
-  }
+  
 
-  const uploadFile = (filePrefix, file) => {
-      // filePrefix is the ticket name
-      // where file is the entire file as a blob, and it has a non unique file name
-      const params = {
-          ACL: 'public-read',
-          Body: file,
-          Bucket: config.bucketName,
-          Key: `${filePrefix}\\${file.name}`,
-          
-      };
-
-      myBucket.putObject(params)
-          .on('httpUploadProgress', (evt) => {
-              setProgress(Math.round((evt.loaded / evt.total) * 100))
-          })
-          .send((err) => {
-              if (err) console.log(err)
-          })
-  }
+ 
 
   
 
