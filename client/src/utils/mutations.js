@@ -86,3 +86,13 @@ mutation addTicket($message: String!, $unit: String, $title : String!, $category
   }
 }
 `
+
+export const DELETE_USER= gql`
+mutation deleteUser($_id: String!){
+    deleteUser(_id: $_id) {
+      _id
+      unit
+      email
+    }
+  }
+`;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { uploadFile } from 'aws-sdk';
 
 
@@ -12,8 +12,10 @@ const config = {
 };
 let img
 
-const FileDownload = ( { imageName } ) => {
-    const [ticketNumber, setticketNumber] = useState('monk.jpg');
+//----------------------------------------------------------------
+const FileDownload = ( { imageName,imagePrefix } ) => {
+    //const [ticketNumber, setticketNumber] = useState('monk.jpg');
+    
     let [img, setImg] = useState()
 
     AWS.config.update({
@@ -21,20 +23,20 @@ const FileDownload = ( { imageName } ) => {
         secretAccessKey: config.secretAccessKey
     });
 
-    const changeHandle = e => {
-        setticketNumber(e.target.value)
-    }
+    // const changeHandle = e => {
+    //     setticketNumber(e.target.value)
+    // }
 
-    const handleClick = (e) => {
-        e.preventDefault();
-    };
+    // const handleClick = (e) => {
+    //     e.preventDefault();
+    // };
 
-    const handleDownload = (imageName) => {
+    const handleDownload = (imageName,imagePrefix) => {
         const s3 = new AWS.S3();
 
         const params = {
             Bucket: config.bucketName,
-            Key: `${config.dirName}\\${imageName}`,
+            Key: `${imagePrefix}\\${imageName}`,
         };
 
         function encode(data) {
@@ -49,25 +51,15 @@ const FileDownload = ( { imageName } ) => {
                 setImg("data:image/jpeg;base64," + encode(data.Body))
             }
         });
-
-        
         return img
-       
-
-
     }
+
+    useEffect(()=>{
+        handleDownload(imageName, imagePrefix)
+    }, [])
 
     return (
         <>
-            <form className='bg-white my-4' onSubmit={handleClick}>
-                <input type="text" placeholder={ticketNumber} value={ticketNumber} name="imageName" onChange={changeHandle} />
-                <a href="#"
-                    value='Download'
-                    className='btn btn-primary btn-block mt-3'
-                    onClick={handleDownload}
-                >Download</a>
-
-            </form>
             <img src={`${img}`} />
         </>
     );

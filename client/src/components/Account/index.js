@@ -2,6 +2,7 @@ import React from "react";
 import { QUERY_ME } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
+
 function Account() {
   
   const { data, error } =  useQuery(QUERY_ME);
@@ -19,6 +20,7 @@ function Account() {
       <h3>Unit: {user.unit}</h3>
       <h3>Email: {user.email}</h3>
       
+
     </div>
   );
 }

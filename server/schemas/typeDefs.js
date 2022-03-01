@@ -64,6 +64,8 @@ const typeDefs = gql`
       isPrivate: Boolean
       status: String
     ): Ticket
+    deleteUser(_id: String!): User
+    
     
     login(email: String!, password: String!): Auth
     

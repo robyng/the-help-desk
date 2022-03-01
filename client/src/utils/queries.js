@@ -92,3 +92,12 @@ query user($email: String!){
   }
 }
 `;
+
+export const QUERY_ALL_USERS = gql`
+query allUsers{
+  users {
+    _id
+    email
+    unit
+  }
+}`

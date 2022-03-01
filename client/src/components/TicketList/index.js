@@ -28,25 +28,6 @@ const [updateTicket] = useMutation(UPDATE_TICKET)
 
 
   };
-  // const [updateTicket, { error }] = useMutation(UPDATE_TICKET, {
-  //   update(cache, { data: { updateTicket } }) {
-  //     try {
-  //       // update tickets array's cache
-  //       // could potentially not exist yet, so wrap in a try/catch
-  //       let { getTickets } = cache.readQuery({ query: QUERY_TICKETS2 });
-
-  //       cache.writeQuery({
-  //         query: QUERY_TICKETS2,
-  //         data: { getTickets: [updateTicket, ...getTickets] },
-  //       });
-  //     } catch (e) {
-  //       console.error(">>>>>>>> catching error ", e, " | ", error);
-  //     }
-
-  //   },
-  // });
-
-//}
 
 const handleFormSubmit = async (event) => {
   event.preventDefault();
@@ -104,7 +85,7 @@ return (
             <p>{ticket.message}</p>
             <p className="mb-0">
               Comment: {ticket.commentCount} || Click to{" "}
-              {ticket.imageName ? <FileDownload></FileDownload> : ""}
+              {ticket.imageName ? <FileDownload imageName={ticket.imageName} imagePrefix={ticket._id}></FileDownload> : ""}
               {ticket.commentCount ? "see" : "start"} the discussion!
             </p>
           </div>
@@ -117,3 +98,23 @@ return (
 };
 
 export default TicketList;
+
+  // const [updateTicket, { error }] = useMutation(UPDATE_TICKET, {
+  //   update(cache, { data: { updateTicket } }) {
+  //     try {
+  //       // update tickets array's cache
+  //       // could potentially not exist yet, so wrap in a try/catch
+  //       let { getTickets } = cache.readQuery({ query: QUERY_TICKETS2 });
+
+  //       cache.writeQuery({
+  //         query: QUERY_TICKETS2,
+  //         data: { getTickets: [updateTicket, ...getTickets] },
+  //       });
+  //     } catch (e) {
+  //       console.error(">>>>>>>> catching error ", e, " | ", error);
+  //     }
+
+  //   },
+  // });
+
+//}
