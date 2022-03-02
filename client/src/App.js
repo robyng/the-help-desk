@@ -1,6 +1,7 @@
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Outlet, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 import Landing from "./components/Landing";
@@ -48,126 +49,95 @@ const logout = event => {
 };
 
 function App() {
-  const pages = ["Home", "Login", "Signup"];
-  const memberPages = ["NewTicket", "Dashboard", "Logout", "Account"]
+  // const pages = [{title:"Home",link: "/"}, {title:"Login", link: "/login"}, "Signup"];
+  // const memberPages = ["NewTicket", "Dashboard", "Logout", "Account"]
 
-  const [currentPage, setCurrentPage] = useState(pages[0]);
-  function displayPage() {
-    if (currentPage === "Home") {
-      return <Landing />;
-    } else if (currentPage === "Login") {
-      return <Login />;
-    } else if (currentPage === "Signup") {
-      return <Signup />;
-    } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
-        return <NewTicket />;
-    } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
-    return <Dashboard />;
-  }  else if (currentPage === "Account" && Auth.loggedIn()) {
-    return Auth.getInfo().unit === '000'?<AdminAccount/>:<Account />;
-  }else if (currentPage === "Logout") {
-    /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
-    return {logout} && Auth.logout()
-  }else {
-    return <Login></Login>
-  } 
+  // const [currentPage, setCurrentPage] = useState(pages[0]);
+
+
+  function displayNav() {
+    if (Auth.loggedIn()) {
+      
+      <>
+        <Link to="/new-ticket">New Ticket</Link>
+        <Link to="/dashboard">Dashboard</Link>
+        {/* <Link to="/logout">Logout</Link> */}
+        <Link to="/account">Account</Link>
+        
+      </>
+
+
+    } else {
+      return <> 
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link>
+      </>
+    }
   }
+  // function displayPage() {
+  //   if (currentPage === pages.title) {
+  //     return <Landing /> ;
+  //   } else if (currentPage === pages.title) {
+  //     return <Login />;
+  //   } else if (currentPage === "Signup") {
+  //     return <Signup />;
+  //   } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
+  //       return <NewTicket />;
+  //   } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
+  //   return <Dashboard />;
+  // }  else if (currentPage === "Account" && Auth.loggedIn()) {
+  //   return Auth.getInfo().unit === '000'?<AdminAccount/>:<Account />;
+  // }else if (currentPage === "Logout") {
+  //   /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
+  //   return {logout} && Auth.logout()
+  // }else {
+  //   return <Login></Login>
+  // } 
+
+
+  // }
   return (
     <ApolloProvider client={client}>
-     
-    <div>
-      <div className="hero">
-      <Header>
+      <Router>
+        <div>
+          <div className="hero">
+            <Header>
 
-        <Nav
+              {/* <Nav
         
           pages={Auth.loggedIn() ? memberPages : pages}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-        ></Nav>
-        
-      </Header>
-      <div className="content">
-     
-      <Router>
-      <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/new-ticket" component={NewTicket} />
-            <Route exact path="/account" component={Account} />
-      </Router>
-      {displayPage()}
-      </div>
-      
+        >
+        </Nav> */}
+{displayNav()}
 
-      </div>
-      
-    </div>
-</ApolloProvider>
+            </Header>
+
+            <div className="content">
+
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/new-ticket" component={NewTicket} />
+              <Route exact path="/account" component={Account} />
+
+
+
+
+
+              {/* {displayPage(          )}    */}
+            </div>
+
+
+          </div>
+
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 
 export default App;
-/*
-<Router>
-      <Header/>
-      <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/Dashboard" component={Dashboard} />
-          <Route exact path="/NewTicket" component={NewTicket} />
-      </Switch>
-
-
-    </Router>
-/*
-
-
-/*
-  <ApolloProvider client={client}>
-    <div>
-      <div className="hero">
-      <Header>
-        <Nav
-          pages={Auth.loggedIn() ? memberPages : pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        ></Nav>
-      </Header>
-      <div className="content">
-      {displayPage()}
-      </div>
-      
-
-      </div>
-      
-    </div>
-</ApolloProvider>
-
-
-
-
-const pages = ["Home", "Login", "Signup"];
-const memberPages = ["NewTicket", "Dashboard", "Logout", "Account"]
-
-const [currentPage, setCurrentPage] = useState(pages[0]);
-function displayPage() {
-  if (currentPage === "Home") {
-    return <Landing />;
-  } else if (currentPage === "Login") {
-    return <Login />;
-  } else if (currentPage === "Signup") {
-    return <Signup />;
-  } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
-      return <NewTicket />;
-  } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
-  return <Dashboard />;
-} else if (currentPage === "Logout") {
-  //don't forget to use Auth.logout as a function! use Auth.logout() with parentheses 
-  return {logout} && Auth.logout()
-}else {
-  return <Login></Login>
-} 
-}*/

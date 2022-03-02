@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, Router} from 'react-router-dom';
 
 
 function Nav(props) {
@@ -15,11 +16,15 @@ function Nav(props) {
                 <li
                     className={`mx-1 btn ${currentPage === page && 'active-page'}`}
                     key={page} >
+                         
                     <span
                         onClick={() => {
                             setCurrentPage(page);
+                          
                         }}
                     >
+                        
+                    
                         {page}
                     </span>
 
