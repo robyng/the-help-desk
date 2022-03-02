@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import NewTicket from "./components/NewTicket";
+import Account from "./components/Account"
+import AdminAccount from "./components/AdminAccount"
 import React, { useState } from "react";
 import Auth from './utils/auth';
 import {
@@ -60,7 +62,9 @@ function App() {
         return <NewTicket />;
     } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
     return <Dashboard />;
-  } else if (currentPage === "Logout") {
+  }  else if (currentPage === "Account" && Auth.loggedIn()) {
+    return Auth.getInfo().unit === '000'?<AdminAccount/>:<Account />;
+  }else if (currentPage === "Logout") {
     /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
     return {logout} && Auth.logout()
   }else {

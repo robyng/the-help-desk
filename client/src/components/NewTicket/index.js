@@ -2,8 +2,6 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { ADD_TICKET } from "../../utils/mutations";
 import { QUERY_TICKETS2, QUERY_ME } from "../../utils/queries";
-// import TicketList from "../TicketList/index.js";
-import FileUpload from "../FileUpload";
 import Auth from '../../utils/auth';
 import FileDownload from "../FileDownload";
 import { uploadFile } from 'aws-sdk';
@@ -26,7 +24,6 @@ const myBucket = new AWS.S3({
 })
 
 function NewTicket() {
-
   const [progress , setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -53,6 +50,11 @@ function NewTicket() {
               if (err) console.log(err)
           })
   }
+
+
+  
+
+ 
 
   
 
@@ -122,61 +124,63 @@ function NewTicket() {
     }
 
 
+
   };
 
   return (
-        <div className='login-card col-lg-5 col-md-10 container'>
-          <div>LoggedIn : {JSON.stringify(loggedIn)}</div>
-          <form className='form login-form' onSubmit={handleFormSubmit} >
-            <div className='form-group'>
-              <label htmlFor='title'>Title:</label>
-              <input className='form-input' type='text' id='title' name='title' onChange={handleChange} />
-              <br/>
-            </div>
-            <div className='form-group'>
-              <label htmlFor='message'>Message:</label>
-            </div>
-            <textarea
-              className="form-input col-12 col-md-12"
-              onChange={handleChange}
-              name="message"
-
-            ></textarea>
-            <br/>
-            <div className='form-group'>
-              <div>
-                <div className="container mt-12" >
-                  <label className="col-sm-8" >
-                    Category: <br/>
-                    <select className="col-sm-8" name="category" onChange={handleChange}>
-                      <option value="plumbing" >Plumbing</option>
-                      <option value="electrical" >Electrical</option>
-                      <option value="cleaning" >Cleaning</option>
-                      <option value="financial" >Financial</option>
-                      <option value="socialareas" >Social Areas</option>
-                    </select>
-                    <br/>
-                    <br/>
-                    <div>
-                      <label>
-                        <input type="checkbox" value={true} onChange={handleChange} />
-                        Private
-                      </label>
-                      <br/>
-                      <br/>
-                      <div>File Upload Progress is {progress}%</div>
-                      <input type="file" onChange={handleFileInput}/>
-
-
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <button className='btn' type='submit'>Submit</button>
-            </div>
-          </form>
-          {error && <div><h1>Creating your ticket failed</h1>{error} </div>}
+    <div className='login-card col-lg-5 col-md-10 container'>
+      <div>LoggedIn : {JSON.stringify(loggedIn)}</div>
+      <form className='form login-form' onSubmit={handleFormSubmit} >
+        <div className='form-group'>
+          <label htmlFor='title'>Title:</label>
+          <input className='form-input' type='text' id='title' name='title' onChange={handleChange} />
+          <br />
         </div>
+        <div className='form-group'>
+          <label htmlFor='message'>Message:</label>
+        </div>
+        <textarea
+          className="form-input col-12 col-md-12"
+          onChange={handleChange}
+          name="message"
+
+        ></textarea>
+        <br />
+        <div className='form-group'>
+          <div>
+            <div className="container mt-12" >
+              <label className="col-sm-8" >
+                Category: <br />
+                <select className="col-sm-8" name="category" onChange={handleChange}>
+                  <option value="plumbing" >Plumbing</option>
+                  <option value="electrical" >Electrical</option>
+                  <option value="cleaning" >Cleaning</option>
+                  <option value="financial" >Financial</option>
+                  <option value="socialareas" >Social Areas</option>
+                </select>
+                <br />
+                <br />
+                <div>
+                  <label>
+                    <input type="checkbox" value={true} onChange={handleChange} />
+                    Private
+                  </label>
+                  <br />
+                  <br />
+                  <div>File Upload Progress is {progress}%</div>
+                  <input type="file" onChange={handleFileInput} />
+
+
+
+                </div>
+              </label>
+            </div>
+          </div>
+          <button className='btn' type='submit'>Submit</button>
+        </div>
+      </form>
+      {error && <div><h1>Creating your ticket failed</h1>{error} </div>}
+    </div>
 
   );
 }

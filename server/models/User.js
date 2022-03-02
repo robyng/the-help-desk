@@ -7,7 +7,7 @@ const userSchema = new Schema(
     unit: { // the unit number acts as a username. It identifies the user and there unit number
       type: String,
       required: true,
-      unique: true,
+      unique: false, //RMG changed, ok to have more than 1 admin
       trim: true,
     },
     email: {

@@ -11,7 +11,7 @@ function Dashboard() {
     
     const loggedIn = Auth.loggedIn();
     const { data: userData, error2 } =  useQuery(QUERY_ME);
-    const { loading, error1, data } = useQuery(QUERY_TICKETS2 );
+    const { loading, error1, data, refetch } = useQuery(QUERY_TICKETS2 );
     console.log("**** user Data" + JSON.stringify(userData))
 
     //const tickets = userData?.me.tickets || [];
@@ -30,6 +30,7 @@ function Dashboard() {
             ) : (
                 <TicketList
                     tickets={tickets}
+                    refetch={refetch}
                 />
             )}
         </div>

@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Ticket, Admin, CommentsSchema } = require("../models");
+const {  User, Ticket, Admin, CommentsSchema } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const verifyAdmin = async (unitToValidate) => {
@@ -152,9 +152,50 @@ const resolvers = {
     ticket: async (parent, { _id }) => {
       return Ticket.findOne({ _id });
     },
+
+    // get all users - RMG
+    users: async() => {
+      return User.find().sort({ createdAt: -1});
+    }
   },
 
   Mutation: {
+    deleteUser: async (parent, args, context) => {
+      if (context.user) {
+        const userId = args._id;
+        // search admin container for the specific id
+        // if a Id object is returned they are an admin
+        // else if its null/empty they are not an admin
+        const isAdmin = await verifyAdmin(context.user.unit);
+        //check if valid admin logged in before deleting, or its the user who owns thee ticket
+        if (isAdmin) {
+          // if admin, show anything for aspecific user or annything for all users
+        return await User.findByIdAndDelete(
+            { _id: args._id },
+            // { $pull: { tickets: ticket._id } },
+            // { new: true }
+         );
+          
+        }
+        // else when deleting, filter by unit on the ticket and ticketid
+        // if they don't match return a null result, else return the ticket deleted
+        // await User.findByIdAndUpdate(
+        //   { _id: context.user._id },
+        //   { $pull: { tickets: ticket._id } },
+        //   { new: true }
+        // );
+        // return Ticket.findOneAndDelete({
+        //   $and: [{ unit: { $eq: context.user.unit } }, { ...args }],
+        // });
+        // you can no longer reach this, but it helped when debugging
+        //throw new Error("An invalid delete operation is being performed")
+      }
+
+      throw new AuthenticationError(
+        "You need to be logged in, to delete a ticket"
+      );
+    },
+
     deleteTicket: async (paerent, args, context) => {
       //ToDo: Delete ticket id from user field
       if (context.user) {
