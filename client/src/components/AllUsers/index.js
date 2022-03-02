@@ -45,14 +45,17 @@ refetch()
     {listUser && listUser.map((user) => (
  
 
- <div key={user._id}  >
+<div key={user._id}  >
 
-   <div >Email: {user.email}</div>
+<div className="card mb-5">
 
+<h4>Unit: {user.unit}</h4>
+<h4>Email: {user.email}</h4>
+<h6>ID: {user._id}</h6>
 
-<h3>Unit: {user.unit}</h3>
-<h3>ID: {user._id}</h3>
 <button type='submit' onClick={(e) => {handleFormSubmit(e, user._id)} }>Delete</button>
+</div>
+
    </div>      
 
 

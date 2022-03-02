@@ -62,10 +62,18 @@ return (
   <div>
     {tickets && tickets.map((ticket) => (
       <div key={ticket._id}>
-        <h3 className="ticket-title">{ticket.title} Status: {ticket.status}</h3>
-        <h3 className="ticket-title">Update Status</h3>
+        <br />
+        <div className="ticket header d-flex justify-content-between mb-3">
+        
+        <h3 className="ticket-title p-2">Issue: {ticket.title}</h3> 
+        <h5 className="p-2"> Status: {ticket.status}</h5>
+
+        </div>
+        {/* <h3 className="ticket-title">Update Status</h3> */}
+      
         <form onSubmit={handleFormSubmit}>
           <input value={ticket._id} name='_id'></input>
+          <br />
           <select name="status" onChange={(e)=>handleChange(e, ticket._id)}>
 
             <option value="open">Open</option>
@@ -77,16 +85,17 @@ return (
 
         <div className="card mb-3">
           <p className="ticket-header">
-            Unit: {ticket.unit} | {JSON.stringify(ticket.isPrivate)}
+            Unit: {ticket.unit} | 
+            {/* {JSON.stringify(ticket.isPrivate)} */}
             <br />
             Ticket on {ticket.createdAt}
           </p>
           <div className="card-body">
             <p>{ticket.message}</p>
             <p className="mb-0">
-              Comment: {ticket.commentCount} || Click to{" "}
+              {/* Comment: {ticket.commentCount} || Click to{" "} */}
               {ticket.imageName ? <FileDownload imageName={ticket.imageName} imagePrefix={ticket._id}></FileDownload> : ""}
-              {ticket.commentCount ? "see" : "start"} the discussion!
+              {/* {ticket.commentCount ? "see" : "start"} the discussion! */}
             </p>
           </div>
         </div>
