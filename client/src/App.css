@@ -89,8 +89,9 @@ header .active-page {
   color: white;
 }
 
-.ticket-header{
+.ticket-header {
   background-color: var(--primary);
+  padding: 20px;
 }
 
 header a {
@@ -106,4 +107,9 @@ input[type="checkbox" i]  {
 
 .ticket {
   margin-bottom: 20px;
+}
+
+.image-size {
+  width: 150px;
+  height: auto;
 }

@@ -38,7 +38,7 @@ const AllUsers = ({ listUser, refetch }) => {
             <h4>Email: {user.email}</h4>
             <h6>ID: {user._id}</h6>
 
-            <button class="btn btn-danger" type='submit' value='submit' onClick={(e) => { handleFormSubmit(e, user._id) }}>Delete</button>
+            <button className="btn btn-danger" type='submit' value='submit' onClick={(e) => { handleFormSubmit(e, user._id) }}>Delete</button>
             </div>
           </div>
 
