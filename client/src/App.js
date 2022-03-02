@@ -74,6 +74,21 @@ function App() {
   }
   return (
     <ApolloProvider client={client}>
+     
+    <div>
+      <div className="hero">
+      <Header>
+
+        <Nav
+        
+          pages={Auth.loggedIn() ? memberPages : pages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></Nav>
+        
+      </Header>
+      <div className="content">
+     
       <Router>
       <Route exact path="/" component={Landing} />
             <Route exact path="/login" component={Login} />
@@ -82,16 +97,6 @@ function App() {
             <Route exact path="/new-ticket" component={NewTicket} />
             <Route exact path="/account" component={Account} />
       </Router>
-    <div>
-      <div className="hero">
-      <Header>
-        <Nav
-          pages={Auth.loggedIn() ? memberPages : pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        ></Nav>
-      </Header>
-      <div className="content">
       {displayPage()}
       </div>
       
