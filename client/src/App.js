@@ -1,5 +1,6 @@
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 import Landing from "./components/Landing";
@@ -73,6 +74,14 @@ function App() {
   }
   return (
     <ApolloProvider client={client}>
+      <Router>
+      <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/new-ticket" component={NewTicket} />
+            <Route exact path="/account" component={Account} />
+      </Router>
     <div>
       <div className="hero">
       <Header>
