@@ -29,12 +29,12 @@ console.log('listUser: '+ JSON.stringify(listUser))
   return (
     <div>
       
-      <h1>Your Account Info</h1>
-      <div key={user._id}></div>
-      <h3>Unit: {user.unit}</h3>
-      <h3>Email: {user.email}</h3>
+      <h1>Manager account</h1>
+      {/* <div key={user._id}></div>
+      <h3>Unit: {user.unit}</h3> */}
+      <h3>{user.email}</h3>
 <br/>
-      <h2>All Users - if admin</h2>
+      <h2>List of residents:</h2>
       {loading ? (
         <div>loading</div>
       ): (
