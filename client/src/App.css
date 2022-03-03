@@ -11,11 +11,6 @@
 
 .login-card,
 .signup-card {
-  /*removed below so error message goes beneath form not to side*/
-  /* display: flex; */
-  /*removed below, it is centered with container*/
-  /* justify-content: center;
-  align-items: center; */
   font-size: 1.5rem;
   padding: 5px;
   border: 1px solid var(--dark); 
@@ -62,15 +57,12 @@ header span {
 
 
 
-nav .btn {
-  font-size: 20px;
-}
 
 html * {
   font-family: 'Montserrat';
 }
 
-h1, h2, h3 {
+h1, h2, h3, h5 {
   font-size: 45px;
   color: white;
 }
@@ -80,27 +72,23 @@ h1, h2, h3 {
  padding: 45px;
 }
 
-header .btn:hover {
-  color: white;
-  border-bottom: 3px solid white
-}
+
 
 /*for current page */
 header .active-page {
-  border-bottom: 3px solid white
+  border-bottom: 3px solid white;
 }
 
 .ticket-title{
   color: white;
 }
 
-.ticket-header{
+.ticket-header {
   background-color: var(--primary);
+  padding: 20px;
 }
 
-header a {
-  text-decoration: none;
-}
+
 
 /*make checkbox bigger*/
 input[type="checkbox" i]  {
@@ -109,14 +97,26 @@ input[type="checkbox" i]  {
   height: 20px;
 }
 
-h5 {
-  color: white;
-}
-
-h3 {
-  color: white;
+.ticket {
+  margin-bottom: 20px;
 }
 
 /* .card {
   padding: 20px;
 } */
+
+header .btn:hover {
+  color: white;
+  border-bottom: 3px solid white
+}
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+
+header a.btn {
+  font-size: 20px;
+  color: white;
+
+}

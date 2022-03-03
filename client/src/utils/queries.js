@@ -8,6 +8,7 @@ query getTickets($searchMyTickets: Boolean, $unit: String, $searchForUnit: Strin
       unit
       createdAt
       status
+      category
       isPrivate
       title
       imageName
