@@ -62,9 +62,6 @@ header span {
 
 
 
-nav .btn {
-  font-size: 20px;
-}
 
 html * {
   font-family: 'Montserrat';
@@ -80,14 +77,11 @@ h1, h2, h3 {
  padding: 45px;
 }
 
-header .btn:hover {
-  color: white;
-  border-bottom: 3px solid white
-}
+
 
 /*for current page */
 header .active-page {
-  border-bottom: 3px solid white
+  border-bottom: 3px solid white;
 }
 
 .ticket-title{
@@ -98,9 +92,7 @@ header .active-page {
   background-color: var(--primary);
 }
 
-header a {
-  text-decoration: none;
-}
+
 
 /*make checkbox bigger*/
 input[type="checkbox" i]  {
@@ -120,3 +112,18 @@ h3 {
 /* .card {
   padding: 20px;
 } */
+
+header .btn:hover {
+  color: white;
+  border-bottom: 3px solid white
+}
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+
+header a.btn {
+  font-size: 20px;
+  color: white;
+}
