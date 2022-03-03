@@ -1,9 +1,10 @@
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Outlet, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+import NoMatch from "./components/NoMatch";
 import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
@@ -44,7 +45,7 @@ const client = new ApolloClient({
 
 /*for log out kill session*/
 const logout = event => {
-  event.preventDefault();
+  // event.preventDefault();
   Auth.logout();
 };
 
@@ -54,49 +55,36 @@ function App() {
 
   // const [currentPage, setCurrentPage] = useState(pages[0]);
 
+function handleActive(e) {
+  e.preventDefault()
+  e.class = "btn active-page"
+}
 
   function displayNav() {
-    if (Auth.loggedIn()) {
-      
-      <>
-        <Link to="/new-ticket">New Ticket</Link>
-        <Link to="/dashboard">Dashboard</Link>
-        {/* <Link to="/logout">Logout</Link> */}
-        <Link to="/account">Account</Link>
-        
+    if (Auth.loggedIn() && Auth.getInfo().unit === '000') {
+      return <>
+        <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
+        <Link to="/dashboard" className="btn" name="dashboard">Dashboard</Link>
+        <a href="/" onClick={logout} className="btn" alt='' name="logout">Logout</a>
+        <Link to="/admin-account" className="btn" name="admin-account">Account</Link>
       </>
 
-
+    } else if ( Auth.loggedIn() ) {
+      return <>
+        <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
+        <Link to="/dashboard" className="btn" name="dashboard" >Dashboard</Link>
+        <a href='/' onClick={logout()} className="btn" name="logout">Logout</a>
+        <Link to="/account" className="btn" name="account">Account</Link>
+        </>
     } else {
       return <> 
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/" className="btn" name="home">Home</Link>
+        <Link to="/login" className="btn" name="login">Login</Link>
+        <Link to="/signup" className="btn" name="signup">Sign Up</Link>
       </>
     }
   }
-  // function displayPage() {
-  //   if (currentPage === pages.title) {
-  //     return <Landing /> ;
-  //   } else if (currentPage === pages.title) {
-  //     return <Login />;
-  //   } else if (currentPage === "Signup") {
-  //     return <Signup />;
-  //   } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
-  //       return <NewTicket />;
-  //   } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
-  //   return <Dashboard />;
-  // }  else if (currentPage === "Account" && Auth.loggedIn()) {
-  //   return Auth.getInfo().unit === '000'?<AdminAccount/>:<Account />;
-  // }else if (currentPage === "Logout") {
-  //   /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
-  //   return {logout} && Auth.logout()
-  // }else {
-  //   return <Login></Login>
-  // } 
-
-
-  // }
+  
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -104,31 +92,23 @@ function App() {
           <div className="hero">
             <Header>
 
-              {/* <Nav
-        
-          pages={Auth.loggedIn() ? memberPages : pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        >
-        </Nav> */}
 {displayNav()}
 
             </Header>
 
             <div className="content">
-
+<Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/new-ticket" component={NewTicket} />
               <Route exact path="/account" component={Account} />
+              <Route exact path="/admin-account" component={AdminAccount} />
 
+              <Route component={NoMatch} />
+              </Switch>
 
-
-
-
-              {/* {displayPage(          )}    */}
             </div>
 
 

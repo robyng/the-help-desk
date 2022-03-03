@@ -60,7 +60,7 @@ const FileDownload = ( { imageName,imagePrefix } ) => {
 
     return (
         <>
-            <img src={`${img}`} />
+            <img src={`${img}`} width="150px" height="auto" alt=''/>
         </>
     );
 };
