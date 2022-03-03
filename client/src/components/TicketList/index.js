@@ -3,7 +3,6 @@ import { UPDATE_TICKET, } from '../../utils/mutations'
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_TICKETS2 } from "../../utils/queries";
 import FileDownload from "../FileDownload";
-import key from '../../assets/images/pexels-kehn-hermano-5962574.jpg';
 const TicketList = ({ tickets, refetch }) => {
   const [formState, setFormState] = useState({
     _id: '',
@@ -85,7 +84,7 @@ const TicketList = ({ tickets, refetch }) => {
             <div className="card-body">
               <p>{ticket.message}</p>
               <div className="image-size">
-                <img src={key} alt="github" />
+
                 {/* Comment: {ticket.commentCount} || Click to{" "} */}
                 {ticket.imageName ? <FileDownload imageName={ticket.imageName} imagePrefix={ticket._id} ></FileDownload> : ""}
                 {/* {ticket.commentCount ? "see" : "start"} the discussion! */}

@@ -105,7 +105,7 @@ function NewTicket() {
     event.preventDefault();
     let tempData
     try {
-      if(selectedFile.name)
+      if(selectedFile?.name)
          tempData  = await addTicket({
           variables: { ...formState, imageName: selectedFile.name }
         });
