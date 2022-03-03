@@ -11,11 +11,6 @@
 
 .login-card,
 .signup-card {
-  /*removed below so error message goes beneath form not to side*/
-  /* display: flex; */
-  /*removed below, it is centered with container*/
-  /* justify-content: center;
-  align-items: center; */
   font-size: 1.5rem;
   padding: 5px;
   border: 1px solid var(--dark); 
@@ -67,7 +62,7 @@ html * {
   font-family: 'Montserrat';
 }
 
-h1, h2, h3 {
+h1, h2, h3, h5 {
   font-size: 45px;
   color: white;
 }
@@ -88,8 +83,9 @@ header .active-page {
   color: white;
 }
 
-.ticket-header{
+.ticket-header {
   background-color: var(--primary);
+  padding: 20px;
 }
 
 
@@ -101,12 +97,8 @@ input[type="checkbox" i]  {
   height: 20px;
 }
 
-h5 {
-  color: white;
-}
-
-h3 {
-  color: white;
+.ticket {
+  margin-bottom: 20px;
 }
 
 /* .card {
@@ -126,4 +118,5 @@ header a {
 header a.btn {
   font-size: 20px;
   color: white;
+
 }
