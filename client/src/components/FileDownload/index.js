@@ -61,11 +61,10 @@ const FileDownload = ( { imageName,imagePrefix } ) => {
     return (
         <>
 
-           if (!imageName) {
-               <div></div>
-           }else {
-               <img src={`${img}`} width="150px" height="auto"  alt='' />
-               }
+            {
+                imageName? (<img src={`${img}`} width="150px" height="auto" alt='' />) : <></>
+            }
+            
 
         </>
     );
