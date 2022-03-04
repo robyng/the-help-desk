@@ -129,7 +129,7 @@ function NewTicket() {
 
   return (
     <div className='login-card col-lg-5 col-md-10 container'>
-      <div>LoggedIn : {JSON.stringify(loggedIn)}</div>
+      {/* <div>LoggedIn : {JSON.stringify(loggedIn)}</div> */}
       <form className='form login-form' onSubmit={handleFormSubmit} >
         <div className='form-group'>
           <label htmlFor='title'>Title:</label>

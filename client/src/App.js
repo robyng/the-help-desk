@@ -45,7 +45,7 @@ const client = new ApolloClient({
 
 /*for log out kill session*/
 const logout = event => {
-  // event.preventDefault();
+  // event.preventDefault(); break site
   Auth.logout();
 };
 
@@ -55,13 +55,15 @@ function App() {
 
   // const [currentPage, setCurrentPage] = useState(pages[0]);
 
-function handleActive(e) {
-  e.preventDefault()
-  e.class = "btn active-page"
-}
+  // function handleActive(e) {
+  //   e.preventDefault()
+  //   e.class = "btn active-page"
+  // }
 
   function displayNav() {
-    if (Auth.loggedIn() && Auth.getInfo().unit === '000') {
+    console.log('unit:' + Auth.getInfo()?.unit)
+    console.log('logged in:' + Auth.loggedIn())
+    if (Auth.loggedIn() && Auth.getInfo()?.unit === '000') {
       return <>
         <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
         <Link to="/dashboard" className="btn" name="dashboard">Dashboard</Link>
@@ -69,35 +71,36 @@ function handleActive(e) {
         <Link to="/admin-account" className="btn" name="admin-account">Account</Link>
       </>
 
-    } else if ( Auth.loggedIn() ) {
+    } else if (Auth.loggedIn() && Auth.getInfo()?.unit === '7777') {
       return <>
         <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
         <Link to="/dashboard" className="btn" name="dashboard" >Dashboard</Link>
         <a href='/' onClick={logout()} className="btn" name="logout">Logout</a>
         <Link to="/account" className="btn" name="account">Account</Link>
-        </>
+      </>
     } else {
-      return <> 
+      return <>
         <Link to="/" className="btn" name="home">Home</Link>
         <Link to="/login" className="btn" name="login">Login</Link>
         <Link to="/signup" className="btn" name="signup">Sign Up</Link>
       </>
     }
   }
-  
-  return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div>
-          <div className="hero">
-            <Header>
 
-{displayNav()}
 
-            </Header>
+return (
+  <ApolloProvider client={client}>
+    <Router>
+      <div>
+        <div className="hero">
+          <Header>
 
-            <div className="content">
-<Switch>
+            {displayNav()}
+
+          </Header>
+
+          <div className="content">
+            <Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
@@ -107,17 +110,17 @@ function handleActive(e) {
               <Route exact path="/admin-account" component={AdminAccount} />
 
               <Route component={NoMatch} />
-              </Switch>
-
-            </div>
-
+            </Switch>
 
           </div>
 
+
         </div>
-      </Router>
-    </ApolloProvider>
-  );
+
+      </div>
+    </Router>
+  </ApolloProvider>
+);
 }
 
 export default App;
