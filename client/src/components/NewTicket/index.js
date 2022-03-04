@@ -105,7 +105,7 @@ function NewTicket() {
     event.preventDefault();
     let tempData
     try {
-      if(selectedFile.name)
+      if(selectedFile?.name)
          tempData  = await addTicket({
           variables: { ...formState, imageName: selectedFile.name }
         });
@@ -151,7 +151,7 @@ function NewTicket() {
             <div className="container mt-12" >
               <label className="col-sm-8" >
                 Category: <br />
-                <select className="col-sm-8" name="category" onChange={handleChange}>
+                <select className="col-sm-8" name="category" id="category" onChange={handleChange}>
                   <option value="plumbing" >Plumbing</option>
                   <option value="electrical" >Electrical</option>
                   <option value="cleaning" >Cleaning</option>

@@ -23,7 +23,7 @@ function Dashboard() {
     return (
         <div>
             <h1>Dashboard</h1>
-            <div>LoggedIn : {JSON.stringify(loggedIn)}</div>
+            {/* <div>LoggedIn : {JSON.stringify(loggedIn)}</div> */}
 
             {loading ?   (
                 <div>Loading...</div>
