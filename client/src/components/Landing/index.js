@@ -7,8 +7,6 @@ function Landing() {
       <br />
       <h3>Keep your properties running smoothly</h3>
       <h3>and your renters happy</h3>
-<br />
-      <a href="/signup" className="btn btn-success" >Get Started</a>
       
     </div>
   );
