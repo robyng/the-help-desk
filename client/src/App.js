@@ -1,8 +1,7 @@
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from "./components/Login";
 import Nav from "./components/Nav";
-import NoMatch from "./components/NoMatch";
 import Landing from "./components/Landing";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
@@ -18,10 +17,14 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
+
 import { setContext } from '@apollo/client/link/context';
+
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
+
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -31,65 +34,64 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
+/*for log out kill session*/
+const logout = event => {
+  event.preventDefault();
+  Auth.logout();
+};
 
 function App() {
-  
-  const pages = [{ title: "Home", link: "/" }, { title: "Login", link: "/login" }, { title: "Signup", link: "/signup" }];
-  
-  const memberPages = [{ title: "NewTicket", link: "/new-ticket" }, { title: "Dashboard", link: "/dashboard" }, { title: "Account", link: "/account" }, { title: 'Logout', link: '/' }]
-  
-  const [currentPage, setCurrentPage] = useState(pages[0]);
+  const pages = ["Home", "Login", "Signup"];
+  const memberPages = ["NewTicket", "Dashboard", "Account", "Logout"]
 
+  const [currentPage, setCurrentPage] = useState(pages[0]);
+  function displayPage() {
+    if (currentPage === "Home") {
+      return <Landing />;
+    } else if (currentPage === "Login") {
+      return <Login />;
+    } else if (currentPage === "Signup") {
+      return <Signup />;
+    } else if (currentPage === "NewTicket" && Auth.loggedIn()) {
+        return <NewTicket />;
+    } else if (currentPage === "Dashboard" && Auth.loggedIn()) {
+    return <Dashboard />;
+  } else if (currentPage === "Account" && Auth.loggedIn()) {
+    return Auth.getInfo()?.unit === '000'?<AdminAccount />:<Account />;
+  }else if (currentPage === "Logout") {
+    /*don't forget to use Auth.logout as a function! use Auth.logout() with parentheses */
+    return {logout} && Auth.logout()
+  }else {
+    return <Login></Login>
+  } 
+  }
   return (
     <ApolloProvider client={client}>
-
-      <div>
-        <Router>
-          <div className="hero">
-            <Header>
-              <Nav
-                pages={Auth.loggedIn() ? memberPages : pages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}></Nav>
-
-            </Header>
-            <div className="content">
-              <Switch>
-                <Route exact path="/">
-                  <Landing />
-                </Route>
-                <Route exact path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/signup">
-                  <Signup />
-                </Route>
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
-                <Route exact path="/account">
-                  {Auth.getInfo()?.unit === '000' ? <AdminAccount /> : <Account />}
-                </Route>
-                <Route exact path="/new-ticket">
-                  <NewTicket />
-                </Route>
-                <Route path="*">
-                  <NoMatch />
-                </Route>
-
-              </Switch>
-
-            </div>
-          </div>
-        </Router>
+    <div>
+      <div className="hero">
+      <Header>
+        <Nav
+          pages={Auth.loggedIn() ? memberPages : pages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></Nav>
+      </Header>
+      <div className="content">
+      {displayPage()}
       </div>
+      
 
-    </ApolloProvider>
+      </div>
+      
+    </div>
+</ApolloProvider>
   );
 }
+
 export default App;
