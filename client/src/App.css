@@ -114,3 +114,8 @@ header a.btn {
   color: white;
 
 }
+
+header a:hover {
+  color: white;
+
+}
