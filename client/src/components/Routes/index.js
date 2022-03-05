@@ -18,23 +18,24 @@ import Auth from '../../utils/auth';
 const Routes = () => { 
     return (
      <Router>
+       
 <Switch>
                 <Route exact path="/">
                   <Landing />
                 </Route>
-                <Route path="/login">
+                <Route exact path="/login">
                   <Login />
                 </Route>
-                <Route path="/signup">
+                <Route exact path="/signup">
                   <Signup />
                 </Route>
-                <Route path="/dashboard">
+                <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
-                <Route path="/account">
+                <Route exact path="/account">
                   {Auth.getInfo()?.unit === '000' ? <AdminAccount /> : <Account />}
                 </Route>
-                <Route path="/new-ticket">
+                <Route exact path="/new-ticket">
                   <NewTicket />
                 </Route>
                 <Route path="*">
