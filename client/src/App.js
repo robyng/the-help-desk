@@ -73,7 +73,7 @@ function App() {
                   <Dashboard />
                 </Route>
                 <Route path="/account">
-                  {Auth.getInfo().unit === '000' ? <AdminAccount /> : <Account />}
+                  {Auth.getInfo()?.unit === '000' ? <AdminAccount /> : <Account />}
                 </Route>
                 <Route path="/new-ticket">
                   <NewTicket />
