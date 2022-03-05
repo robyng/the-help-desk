@@ -12,7 +12,7 @@ function Dashboard() {
     const loggedIn = Auth.loggedIn();
     const { data: userData, error2 } =  useQuery(QUERY_ME);
     const { loading, error1, data, refetch } = useQuery(QUERY_TICKETS2 );
-    console.log("**** user Data" + JSON.stringify(userData))
+    // console.log("**** user Data" + JSON.stringify(userData))
 
     //const tickets = userData?.me.tickets || [];
     const tickets = data?.getTickets || [];
@@ -23,7 +23,6 @@ function Dashboard() {
     return (
         <div>
             <h1>Dashboard</h1>
-            {/* <div>LoggedIn : {JSON.stringify(loggedIn)}</div> */}
 
             {loading ?   (
                 <div>Loading...</div>

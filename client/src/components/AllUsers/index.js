@@ -44,8 +44,6 @@ const AllUsers = ({ listUser, refetch }) => {
 
         </div>
 
-
-
       ))
       }
     </div>

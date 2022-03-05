@@ -56,8 +56,6 @@ header span {
 };
 
 
-
-
 html * {
   font-family: 'Montserrat';
 }
@@ -100,10 +98,6 @@ input[type="checkbox" i]  {
 .ticket {
   margin-bottom: 20px;
 }
-
-/* .card {
-  padding: 20px;
-} */
 
 header .btn:hover {
   color: white;

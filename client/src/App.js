@@ -1,7 +1,5 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Outlet, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 import NoMatch from "./components/NoMatch";
@@ -20,14 +18,10 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
-
 import { setContext } from '@apollo/client/link/context';
-
-
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
-
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -37,87 +31,65 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
-/*for log out kill session*/
-const logout = event => {
-  // event.preventDefault();
-  Auth.logout();
-};
 
 function App() {
-  // const pages = [{title:"Home",link: "/"}, {title:"Login", link: "/login"}, "Signup"];
-  // const memberPages = ["NewTicket", "Dashboard", "Logout", "Account"]
-
-  // const [currentPage, setCurrentPage] = useState(pages[0]);
-
-function handleActive(e) {
-  e.preventDefault()
-  e.class = "btn active-page"
-}
-
-  function displayNav() {
-    if (Auth.loggedIn() && Auth.getInfo().unit === '000') {
-      return <>
-        <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
-        <Link to="/dashboard" className="btn" name="dashboard">Dashboard</Link>
-        <a href="/" onClick={logout} className="btn" alt='' name="logout">Logout</a>
-        <Link to="/admin-account" className="btn" name="admin-account">Account</Link>
-      </>
-
-    } else if ( Auth.loggedIn() ) {
-      return <>
-        <Link to="/new-ticket" className="btn" name="new-ticket">New Ticket</Link>
-        <Link to="/dashboard" className="btn" name="dashboard" >Dashboard</Link>
-        <a href='/' onClick={logout()} className="btn" name="logout">Logout</a>
-        <Link to="/account" className="btn" name="account">Account</Link>
-        </>
-    } else {
-      return <> 
-        <Link to="/" className="btn" name="home">Home</Link>
-        <Link to="/login" className="btn" name="login">Login</Link>
-        <Link to="/signup" className="btn" name="signup">Sign Up</Link>
-      </>
-    }
-  }
   
+  const pages = [{ title: "Home", link: "/" }, { title: "Login", link: "/login" }, { title: "Signup", link: "/signup" }];
+  
+  const memberPages = [{ title: "NewTicket", link: "/new-ticket" }, { title: "Dashboard", link: "/dashboard" }, { title: "Account", link: "/account" }, { title: 'Logout', link: '/' }]
+  
+  const [currentPage, setCurrentPage] = useState(pages[0]);
+
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div>
+
+      <div>
+        <Router>
           <div className="hero">
             <Header>
-
-{displayNav()}
+              <Nav
+                pages={Auth.loggedIn() ? memberPages : pages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}></Nav>
 
             </Header>
-
             <div className="content">
-<Switch>
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/new-ticket" component={NewTicket} />
-              <Route exact path="/account" component={Account} />
-              <Route exact path="/admin-account" component={AdminAccount} />
+              <Switch>
+                <Route exact path="/">
+                  <Landing />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
+                <Route path="/dashboard">
+                  <Dashboard />
+                </Route>
+                <Route path="/account">
+                  {Auth.getInfo().unit === '000' ? <AdminAccount /> : <Account />}
+                </Route>
+                <Route path="/new-ticket">
+                  <NewTicket />
+                </Route>
+                <Route path="*">
+                  <NoMatch />
+                </Route>
 
-              <Route component={NoMatch} />
               </Switch>
 
             </div>
-
-
           </div>
+        </Router>
+      </div>
 
-        </div>
-      </Router>
     </ApolloProvider>
   );
 }
-
 export default App;
