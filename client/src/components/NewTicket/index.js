@@ -38,7 +38,7 @@ function NewTicket() {
           ACL: 'public-read',
           Body: file,
           Bucket: config.bucketName,
-          Key: `${filePrefix}\\${file.name}`,
+          Key: `${filePrefix}\\${file?.name}`,
           
       };
 
@@ -50,14 +50,7 @@ function NewTicket() {
               if (err) console.log(err)
           })
   }
-
-
   
-
- 
-
-  
-
   const loggedIn = Auth.loggedIn();
 
   const [formState, setFormState] = useState({
@@ -129,7 +122,6 @@ function NewTicket() {
 
   return (
     <div className='login-card col-lg-5 col-md-10 container'>
-      {/* <div>LoggedIn : {JSON.stringify(loggedIn)}</div> */}
       <form className='form login-form' onSubmit={handleFormSubmit} >
         <div className='form-group'>
           <label htmlFor='title'>Title:</label>
@@ -152,7 +144,7 @@ function NewTicket() {
               <label className="col-sm-8" >
                 Category: <br />
                 <select className="col-sm-8" name="category" id="category" onChange={handleChange}>
-                  <option value="plumbing" >Plumbing</option>
+                  <option value="plumbing"  >Plumbing</option>
                   <option value="electrical" >Electrical</option>
                   <option value="cleaning" >Cleaning</option>
                   <option value="financial" >Financial</option>

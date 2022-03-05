@@ -10,7 +10,7 @@ const ticketSchema = new Schema(
       minlength: 1,
       maxlength: 100,
     },
-    category: { // the categor of the ticket, i.e plumbing, electrical, general
+    category: { // the category of the ticket, i.e plumbing, electrical, general
       type: String,
       //required: "The ticket is missing a title",
       minlength: 1,

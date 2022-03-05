@@ -1,5 +1,4 @@
 import React from "react";
-// import TicketList from "../TicketList/index.js";
 
 function Landing() {
   return (

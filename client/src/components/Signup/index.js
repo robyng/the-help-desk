@@ -40,15 +40,15 @@ function Signup() {
         <div className='signup-card col-lg-4 col-md-10 container'>
           <form className='form signup-form' onSubmit={handleFormSubmit}>
             <div className='form-group'>
-              <label for='unit-signup'>Unit:</label>
+              <label htmlFor='unit-signup'>Unit:</label>
               <input className='form-input' type='number' id='unit-signup' name="unit" value={formState.unit} onChange={handleChange} />
             </div>
             <div className='form-group'>
-              <label for='email-signup'>Email:</label>
+              <label htmlFor='email-signup'>Email:</label>
               <input className='form-input' type='text' id='email-signup' name="email" value={formState.email} onChange={handleChange} />
             </div>
             <div className='form-group'>
-              <label for='password-signup'>Password:</label>
+              <label htmlFor='password-signup'>Password:</label>
               <input className='form-input' type='password' id='password-signup' name="password" value={formState.password} onChange={handleChange} />
             </div>
             <div className='form-group'>
@@ -61,5 +61,3 @@ function Signup() {
 }
 
 export default Signup;
-
-
