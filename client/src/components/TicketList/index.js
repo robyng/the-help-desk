@@ -37,18 +37,9 @@ const TicketList = ({ tickets, refetch }) => {
     }
   };
 
-
-
-  //Show all tickets
-  //const { loading, data } = useQuery(QUERY_TICKETS2);
-  //const tickets = data?.getTickets || [];
-
   if (!tickets || !tickets.length) {
     return <h3>No Ticket Yet</h3>;
   }
-  //console.log(`tickets ` + JSON.stringify(data))
-
-
 
   return (
 
@@ -60,7 +51,6 @@ const TicketList = ({ tickets, refetch }) => {
               <h3 className="ticket-title">Issue: {ticket.title}</h3>
               <h5 > Status: {ticket.status}</h5>
               <form onSubmit={handleFormSubmit}>
-                {/* <input value={ticket._id} name='_id'></input> */}
                 
                 <select name="status" onChange={(e) => handleChange(e, ticket._id)}>
                   <option value="blank">Status...</option>

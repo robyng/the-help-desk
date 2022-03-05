@@ -21,7 +21,7 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-    tickets: [ObjectId] // anh array of ticket IDs associated with this single user
+    tickets: [ObjectId] // an array of ticket IDs associated with this single user
   },
   {
     toJSON: {
