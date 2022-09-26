@@ -119,27 +119,27 @@ header a:hover {
   color: white;
 }
 
-/* Below 1200px apply style */
-@media only screen and (min-width: 1200px) {
+/* Applys to under 1200px  */
+@media only screen and (max-width: 1200px) {
   div.test {
     padding: 25px;
+    background-color: rgb(0,0,0,60%);
   }
 }
 
-@media only screen and (min-width: 792px) {
+/* @media only screen and (min-width: 792px) {
   .mobile-menu {
     display: none;
   }
-}
+} */
 
-/*mobile menu start at 792px and below*/
+/* mobile menu start at 792px and below
 @media only screen and (max-width: 792px) {
   .menu {
     display: none;
   }
   .content {
     padding: 10px;
-  }
+  } 
 
-  
-}
+ } */
