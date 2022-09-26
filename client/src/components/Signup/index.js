@@ -40,6 +40,8 @@ function Signup() {
         <div className='signup-card col-lg-4 col-md-10 container'>
           <form className='form signup-form' onSubmit={handleFormSubmit}>
             <div className='form-group'>
+              <h3>Sign Up</h3>
+              <h3>For Demos, use Units in the 300s.</h3>
               <label htmlFor='unit-signup'>Unit:</label>
               <input className='form-input' type='number' id='unit-signup' name="unit" value={formState.unit} onChange={handleChange} />
             </div>
@@ -55,7 +57,7 @@ function Signup() {
               <button className='btn' type='submit'>Signup</button>
             </div>
           </form>
-          {error && <div><h1>Signup failed</h1></div>}
+          {error && <div><h1>Signup failed: {error.name}</h1></div>}
         </div>
   );
 }
