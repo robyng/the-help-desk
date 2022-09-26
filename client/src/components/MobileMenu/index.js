@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function Nav(props) {
+function MobileMenu(props) {
     const {
         pages = [],
         currentPage,
@@ -10,7 +10,7 @@ function Nav(props) {
 
     return (
 <nav> 
-        <ul className="flex-row menu">
+        <ul className="mobile-menu-list">
             {pages.map((page) => (
                 <li
                     className={`mx-1 btn ${currentPage === page && 'text-danger'}`}
@@ -33,4 +33,4 @@ function Nav(props) {
     )
 }
 
-export default Nav;
+export default MobileMenu;
