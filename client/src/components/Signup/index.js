@@ -41,7 +41,7 @@ function Signup() {
           <form className='form signup-form' onSubmit={handleFormSubmit}>
             <div className='form-group'>
               <h3>Sign Up</h3>
-              <h3>For Demos, use Units in the 300s.</h3>
+              <h4>For Demos, use units in the 300s.</h4>
               <label htmlFor='unit-signup'>Unit:</label>
               <input className='form-input' type='number' id='unit-signup' name="unit" value={formState.unit} onChange={handleChange} />
             </div>
